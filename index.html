@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Calis"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#E8A020">
+<link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-180.png">
+<title>Calis</title>
+<style>:root{--or:#E8A020;--or2:#F29A1F;--cream:#FBF1E0;--ink:#1f2a44;--mut:#6b7488;--card:#fff;--ok:#2e7d32;--bad:#c62828;--pur:#8E5BD0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
+body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+header{background:var(--or);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:22px;letter-spacing:.5px}
+header small{opacity:.9;font-size:13px}
+main{padding:12px 14px;max-width:640px;margin:0 auto}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e6dcc8;display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:6}
+.tabs button{flex:1;border:0;background:none;padding:9px 0 8px;font-size:12px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px}
+.tabs button b{font-size:20px;font-weight:400}
+.tabs button.on{color:var(--or);font-weight:700}
+.card{background:var(--card);border-radius:14px;padding:12px;margin:0 0 12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.row{display:flex;align-items:center;gap:12px}
+.thumb{width:96px;height:67px;border-radius:10px;background:#FFF7E8;flex:none}
+.grow{flex:1;min-width:0}
+.name{font-weight:700;font-size:17px}
+.sub{color:var(--mut);font-size:13px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#FFF0D0;color:#8a5a00;margin-right:4px}
+h2{font-size:15px;margin:14px 2px 8px;color:var(--ink)}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;border-radius:12px;padding:13px;font-size:17px;font-weight:700;background:var(--ink);color:#fff}
+.btn.or{background:var(--or2)}
+.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid #d9cdb4}
+.btn.sm{width:auto;padding:8px 14px;font-size:14px}
+.hero{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.hero svg{width:100%;display:block;background:#FFF7E8}
+.hero .cap{background:var(--or);color:#fff;padding:8px 12px;font-weight:700;min-height:44px;font-size:15px}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.step{background:#fff;border-radius:12px;padding:8px;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:.2s}
+.step.on{outline:3px solid var(--or2)}
+.step svg{width:100%;background:#FFF7E8;border-radius:8px}
+.step b{display:block;color:var(--or);font-size:13px;margin:4px 0 2px}
+.step span{font-size:13.5px}
+.tip{background:#FFF7E8;border-left:4px solid var(--or2);padding:10px 12px;border-radius:8px;font-size:14px;margin:12px 0}
+.inp{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0}
+.inp .st{display:flex;align-items:center;gap:10px}
+.inp .st button{width:36px;height:36px;border-radius:50%;border:1.5px solid #d9cdb4;background:#fff;font-size:20px}
+.inp .st b{min-width:34px;text-align:center;font-size:18px}
+.back{border:0;background:none;color:var(--or);font-size:16px;font-weight:700;padding:4px 0 10px}
+.run{position:fixed;inset:0;background:var(--cream);z-index:20;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom))}
+.run .top{display:flex;justify-content:space-between;color:var(--mut);font-size:14px}
+.run .big{font-size:76px;font-weight:800;text-align:center;line-height:1;margin:6px 0;color:var(--ink)}
+.run .lab{text-align:center;color:var(--mut);margin-bottom:8px}
+.run .hero{margin:6px 0}
+.run .grid{margin-top:auto;display:grid;gap:8px}
+.bar{height:6px;background:#eadfc8;border-radius:3px;margin:6px 0 10px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--or2)}
+.rest{color:var(--pur)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:38px;text-align:center;font-size:11px;color:var(--mut)}
+.dot i{display:block;width:30px;height:30px;margin:0 auto 2px;border-radius:50%;background:#eadfc8}
+.dot.on i{background:var(--or2)}
+.num{display:flex;gap:10px}
+.num .card{flex:1;text-align:center;margin:0}
+.num b{display:block;font-size:26px;color:var(--or)}
+.note{font-size:12.5px;color:var(--mut);margin:6px 2px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:20px;font-size:14px;z-index:30}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal .box{background:#fff;border-radius:16px;padding:18px;width:100%;max-width:360px}
+.modal .two{display:flex;gap:10px;margin-top:14px}
+.empty{color:var(--mut);font-size:13px;padding:6px 2px}
+</style></head>
+<body>
+<header><h1>Calis</h1><small>Calisthenics cơ bản cho người mới</small></header>
+<main id="main"></main>
+<nav class="tabs">
+<button data-t="ex"><b>🏋️</b>Bài tập</button>
+<button data-t="plan"><b>📅</b>Giáo án</button>
+<button data-t="hist"><b>📈</b>Lịch sử</button>
+<button data-t="set"><b>⚙️</b>Cài đặt</button>
+</nav>
+<script>/* ===== Bộ vẽ người (SVG) + chạy chuyển động lặp ===== */
+var ORDER=['h','s','p','e','w','k','a','f','e2','w2','k2','a2','f2'];
+var COL={skin:'#F0B98A',skinF:'#D9996A',top:'#F29A1F',topF:'#C97A10',sh:'#7A4A22',shF:'#5C3818',shoe:'#8E5BD0',shoeF:'#6C44A6',hair:'#5A3418',bar:'#9AA3B5',gr:'#D8C9AE'};
+
+// Tạo tư thế: ô nào thiếu thì tay/chân xa lấy theo bên gần, lệch 6px
+function P(o){
+  var r={},i,k;
+  for(i=0;i<ORDER.length;i++){k=ORDER[i];if(o[k])r[k]=o[k].slice();}
+  var far={e2:'e',w2:'w',k2:'k',a2:'a',f2:'f'};
+  for(k in far){if(!r[k]){var b=r[far[k]];r[k]=[b[0]-6,b[1]];}}
+  return r;
+}
+function toVec(p){var v=[],i;for(i=0;i<ORDER.length;i++){v.push(p[ORDER[i]][0],p[ORDER[i]][1]);}return v;}
+function toObj(v){var o={},i;for(i=0;i<ORDER.length;i++){o[ORDER[i]]=[v[i*2],v[i*2+1]];}return o;}
+// Nâng cả người lên dy (số âm = lên), giữ nguyên các khớp trong keep
+function lift(p,dy,keep){
+  var r={},k;keep=keep||[];
+  for(k in p){r[k]=[p[k][0],p[k][1]+(keep.indexOf(k)>=0?0:dy)];}
+  return r;
+}
+function NS(tag,at,par){
+  var e=document.createElementNS('http://www.w3.org/2000/svg',tag),k;
+  for(k in at){e.setAttribute(k,at[k]);}
+  if(par)par.appendChild(e);return e;
+}
+function seg(par,col,w){return NS('line',{stroke:col,'stroke-width':w,'stroke-linecap':'round','stroke-linejoin':'round'},par);}
+function setSeg(el,a,b){el.setAttribute('x1',a[0]);el.setAttribute('y1',a[1]);el.setAttribute('x2',b[0]);el.setAttribute('y2',b[1]);}
+function mid(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];}
+
+// Dựng hình người trong một thẻ <svg>; trả về hàm set(tư thế)
+function createFigure(svg,ex){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  svg.setAttribute('viewBox','0 6 240 168');
+  var g=ex.ground||158,dir=ex.dir;
+  NS('ellipse',{cx:120,cy:g+1,rx:104,ry:5,fill:COL.gr,opacity:.55},svg);
+  if(ex.rig){
+    var r=ex.rig;
+    NS('line',{x1:r.x1,y1:r.y,x2:r.x1,y2:g,stroke:COL.bar,'stroke-width':5,'stroke-linecap':'round'},svg);
+    NS('line',{x1:r.x2,y1:r.y,x2:r.x2,y2:g,stroke:COL.bar,'stroke-width':5,'stroke-linecap':'round'},svg);
+    NS('line',{x1:r.x1-6,y1:r.y,x2:r.x2+6,y2:r.y,stroke:'#6F7A91','stroke-width':6,'stroke-linecap':'round'},svg);
+  }
+  // thứ tự vẽ: chân xa, tay xa, thân, chân gần, đầu, tay gần
+  var fT=seg(svg,COL.shF,15),fS=seg(svg,COL.skinF,10),fShoe=seg(svg,COL.shoeF,8);
+  var fA1=seg(svg,COL.skinF,8),fA2=seg(svg,COL.skinF,7),fHand=NS('circle',{r:4.5,fill:COL.skinF},svg);
+  var tor=seg(svg,COL.top,24);
+  var nShort=seg(svg,COL.sh,15);
+  var nS=seg(svg,COL.skin,10),nShoe=seg(svg,COL.shoe,8);
+  var neck=seg(svg,COL.skin,8);
+  var head=NS('circle',{r:11,fill:COL.skin},svg);
+  var hair=NS('path',{fill:COL.hair},svg);
+  var eye1=NS('circle',{r:1.7,fill:'#2b2118'},svg),eye2=NS('circle',{r:1.7,fill:'#2b2118'},svg);
+  var nA1=seg(svg,COL.skin,8),nA2=seg(svg,COL.skin,7),nHand=NS('circle',{r:4.5,fill:COL.skin},svg);
+  return function(p){
+    if(!p.h)p=toObj(p);
+    // chân xa
+    setSeg(fT,p.p,mid(p.p,p.k2,.9));
+    setSeg(fS,p.k2,p.a2);setSeg(fShoe,p.a2,p.f2);
+    setSeg(fA1,p.s,p.e2);setSeg(fA2,p.e2,p.w2);
+    fHand.setAttribute('cx',p.w2[0]);fHand.setAttribute('cy',p.w2[1]);
+    // thân
+    setSeg(tor,p.p,p.s);
+    // chân gần
+    setSeg(nShort,p.p,mid(p.p,p.k,.9));
+    setSeg(nS,p.k,p.a);setSeg(nShoe,p.a,p.f);
+    // đầu
+    setSeg(neck,p.s,p.h);
+    head.setAttribute('cx',p.h[0]);head.setAttribute('cy',p.h[1]);
+    var x=p.h[0],y=p.h[1],d;
+    if(dir===0){d='M'+(x-11)+','+(y+1)+' A11 11 0 0 1 '+(x+11)+','+(y+1)+' Z';}
+    else{d='M'+(x-dir*11)+','+(y+2)+' A11 11 0 0 '+(dir===1?1:0)+' '+(x+dir*3)+','+(y-10.6)+' L'+x+','+(y-1)+' Z';}
+    hair.setAttribute('d',d);
+    if(dir===0){
+      eye1.setAttribute('cx',x-4);eye1.setAttribute('cy',y+3);eye2.setAttribute('cx',x+4);eye2.setAttribute('cy',y+3);
+      eye2.style.display='';
+    }else{
+      eye1.setAttribute('cx',x+dir*5);eye1.setAttribute('cy',y+1);eye2.style.display='none';
+    }
+    // tay gần
+    setSeg(nA1,p.s,p.e);setSeg(nA2,p.e,p.w);
+    nHand.setAttribute('cx',p.w[0]);nHand.setAttribute('cy',p.w[1]);
+  };
+}
+
+/* ===== Bộ chạy hoạt hình: nhiều hình cùng lúc, chỉ một vòng requestAnimationFrame ===== */
+var PLAYERS=[],TICK=false;
+function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+function createPlayer(svg,ex,onStep,speed){
+  var set=createFigure(svg,ex);
+  var fr=ex.frames.map(function(f){return {v:toVec(f.p),d:f.d,h:f.h||0};});
+  var total=0,i;for(i=0;i<fr.length;i++)total+=fr[i].d+fr[i].h;
+  var pl={svg:svg,t0:performance.now(),total:total,last:-1,speed:speed||1,
+    draw:function(now){
+      var t=((now-this.t0)*this.speed)%this.total,idx=0,n=fr.length,acc=0,from,to,u,v=[],j;
+      for(idx=0;idx<n;idx++){
+        var seglen=fr[idx].d+fr[idx].h;
+        if(t<acc+seglen)break;acc+=seglen;
+      }
+      if(idx>=n)idx=n-1;
+      var local=t-acc;
+      from=fr[(idx+n-1)%n].v;to=fr[idx].v;
+      u=fr[idx].d>0?Math.min(1,local/fr[idx].d):1;u=ease(u);
+      for(j=0;j<to.length;j++)v.push(from[j]+(to[j]-from[j])*u);
+      set(v);
+      if(idx!==this.last){this.last=idx;if(onStep)onStep(idx);}
+    }};
+  PLAYERS.push(pl);pl.draw(pl.t0);startTick();
+  return pl;
+}
+function startTick(){
+  if(TICK)return;TICK=true;
+  (function loop(now){
+    var i,alive=[];
+    for(i=0;i<PLAYERS.length;i++){
+      if(PLAYERS[i].svg.isConnected){alive.push(PLAYERS[i]);if(!document.hidden)PLAYERS[i].draw(now);}
+    }
+    PLAYERS=alive;
+    if(PLAYERS.length)requestAnimationFrame(loop);else TICK=false;
+  })(performance.now());
+}
+// Hình tĩnh (dùng cho thẻ bước và ảnh nhỏ)
+function drawStatic(svg,ex,frameIdx){
+  var set=createFigure(svg,ex);set(ex.frames[frameIdx].p);
+}
+
+/* ===== Dữ liệu bài tập (phần 1: 8 bài cơ bản) ===== */
+var EX=[];
+var STAND=P({h:[108,31],s:[108,52],p:[108,92],e:[107,72],w:[107,90],k:[110,122],a:[108,152],f:[120,152],e2:[112,72],w2:[112,90],k2:[106,122],a2:[102,152],f2:[114,152]});
+var STAND_ARMS_FWD=P({h:[108,31],s:[108,52],p:[108,92],e:[126,55],w:[144,55],k:[110,122],a:[108,152],f:[120,152],e2:[126,53],w2:[144,53],k2:[106,122],a2:[102,152],f2:[114,152]});
+var SQUAT=P({h:[120,66],s:[112,84],p:[98,120],e:[130,88],w:[148,86],k:[126,122],a:[114,152],f:[128,152],e2:[130,86],w2:[148,84],k2:[124,122],a2:[110,152],f2:[124,152]});
+var PUSH_UP=P({h:[155,104],s:[136,110],p:[99,125],e:[137,129],w:[138,150],k:[71,136],a:[46,146],f:[38,154],e2:[141,129],w2:[142,150],k2:[69,136],a2:[44,146],f2:[36,154]});
+var PUSH_DN=P({h:[164,130],s:[144,134],p:[104,138],e:[124,140],w:[142,150],k:[75,142],a:[46,146],f:[38,154],e2:[128,140],w2:[146,150],k2:[73,142],a2:[44,146],f2:[36,154]});
+var SQ_HANDS=P({h:[140,108],s:[126,114],p:[96,126],e:[132,134],w:[136,150],k:[126,128],a:[114,152],f:[128,152],e2:[136,134],w2:[140,150],k2:[124,128],a2:[110,152],f2:[124,152]});
+var JUMP=lift(P({h:[110,31],s:[110,52],p:[108,92],e:[115,36],w:[115,20],k:[110,120],a:[104,146],f:[116,148],e2:[107,36],w2:[107,20],k2:[106,120],a2:[98,146],f2:[110,148]}),-10);
+var DESC={};
+
+EX.push({id:'hit-dat',name:'Hít đất',group:'Ngực · Vai · Tay sau',level:2,mode:'reps',sets:3,reps:8,rest:60,dir:1,
+  frames:[{p:PUSH_UP,d:0,h:500},{p:PUSH_DN,d:900,h:350},{p:PUSH_UP,d:900,h:350}],
+  steps:[{t:'Chống hai tay rộng bằng vai, thân thẳng từ vai đến gót chân.',f:0},
+         {t:'Hạ người xuống từ từ, khuỷu tay gập khoảng 45° so với thân, ngực gần chạm sàn.',f:1},
+         {t:'Đẩy mạnh lên về tư thế ban đầu, giữ bụng siết, không võng lưng.',f:2}],
+  tips:'Chưa đủ sức: tì gối xuống sàn hoặc chống tay lên ghế/bậc thang. Thở ra khi đẩy lên.'});
+
+EX.push({id:'squat',name:'Squat',group:'Đùi · Mông · Cơ lõi',level:1,mode:'reps',sets:3,reps:12,rest:60,dir:1,
+  frames:[{p:STAND_ARMS_FWD,d:0,h:400},{p:SQUAT,d:1000,h:400},{p:STAND_ARMS_FWD,d:1000,h:300}],
+  steps:[{t:'Đứng thẳng, hai chân rộng bằng vai, mũi chân hơi mở ra, hai tay đưa ra trước.',f:0},
+         {t:'Đẩy hông ra sau và hạ người xuống như ngồi ghế, lưng thẳng, gối hướng theo mũi chân.',f:1},
+         {t:'Đạp gót chân đứng lên, siết mông ở điểm cao nhất.',f:2}],
+  tips:'Gót chân luôn chạm sàn. Xuống đến khi đùi gần song song sàn là đủ.'});
+
+EX.push({id:'plank',name:'Plank',group:'Cơ bụng · Cơ lõi · Vai',level:1,mode:'time',sets:3,reps:30,rest:45,dir:1,
+  frames:[{p:P({h:[156,126],s:[136,129],p:[98,133],e:[130,149],w:[152,149],k:[68,141],a:[38,146],f:[30,153],e2:[134,149],w2:[156,149],k2:[66,141],a2:[36,146],f2:[28,153]}),d:0,h:900},
+          {p:P({h:[156,124],s:[136,127],p:[98,130],e:[130,149],w:[152,149],k:[68,139],a:[38,146],f:[30,153],e2:[134,149],w2:[156,149],k2:[66,139],a2:[36,146],f2:[28,153]}),d:900,h:900}],
+  steps:[{t:'Chống hai khuỷu tay xuống sàn ngay dưới vai, hai bàn tay đặt song song.',f:0},
+         {t:'Duỗi hai chân ra sau, chống bằng mũi chân.',f:0},
+         {t:'Giữ thân thành một đường thẳng từ đầu đến gót, siết bụng và mông.',f:1},
+         {t:'Thở đều, không nín thở. Giữ đủ số giây rồi hạ gối xuống nghỉ.',f:1}],
+  tips:'Hông không được võng xuống hay nhô cao. Mới tập: giữ 15 – 20 giây, tăng dần.'});
+
+EX.push({id:'burpee',name:'Burpee',group:'Toàn thân · Tim phổi',level:3,mode:'reps',sets:3,reps:8,rest:75,dir:1,
+  frames:[{p:STAND,d:0,h:350},{p:SQ_HANDS,d:500,h:250},{p:PUSH_UP,d:350,h:250},{p:PUSH_DN,d:350,h:150},{p:PUSH_UP,d:350,h:150},{p:SQ_HANDS,d:350,h:200},{p:JUMP,d:450,h:200},{p:STAND,d:450,h:100}],
+  steps:[{t:'Đứng thẳng, hai tay dọc thân, hai chân rộng bằng vai.',f:0},
+         {t:'Hạ người xuống tư thế squat rồi chống hai tay xuống sàn trước mặt.',f:1},
+         {t:'Dồn lực vào tay, bật hai chân ra sau, duỗi thẳng thành tư thế plank.',f:2},
+         {t:'Hít đất 1 lần (có thể bỏ qua), rồi bật hai chân về phía trước trở lại tư thế squat.',f:3},
+         {t:'Bật nhảy lên cao, hai tay giơ thẳng qua đầu, tiếp đất nhẹ nhàng bằng mũi chân rồi lặp lại.',f:6}],
+  tips:'Làm chậm trước, đúng động tác rồi mới tăng tốc. Có thể bước chân thay vì bật nếu đang mới tập.'});
+
+EX.push({id:'lunge',name:'Lunge (bước chùng)',group:'Đùi · Mông · Thăng bằng',level:2,mode:'reps',sets:3,reps:10,rest:60,dir:1,
+  frames:[{p:STAND,d:0,h:350},
+          {p:P({h:[100,57],s:[100,78],p:[100,118],e:[84,92],w:[98,104],k:[130,120],a:[130,152],f:[142,152],e2:[86,92],w2:[100,104],k2:[76,142],a2:[58,146],f2:[52,152]}),d:900,h:350},
+          {p:STAND,d:900,h:250},
+          {p:P({h:[100,57],s:[100,78],p:[100,118],e:[84,92],w:[98,104],k:[76,142],a:[58,146],f:[52,152],e2:[86,92],w2:[100,104],k2:[132,120],a2:[132,152],f2:[144,152]}),d:900,h:350},
+          {p:STAND,d:900,h:250}],
+  steps:[{t:'Đứng thẳng, hai chân khép bằng vai, hai tay chống hông.',f:0},
+         {t:'Bước một chân ra trước, hạ thấp người đến khi hai gối cùng gập khoảng 90°.',f:1},
+         {t:'Đạp chân trước đứng lên về vị trí ban đầu.',f:2},
+         {t:'Đổi chân và lặp lại. Số lần tính cho mỗi bên.',f:3}],
+  tips:'Thân trên thẳng, gối trước không vượt quá mũi chân quá nhiều, gối sau gần chạm sàn.'});
+
+EX.push({id:'gap-bung',name:'Gập bụng',group:'Cơ bụng',level:1,mode:'reps',sets:3,reps:12,rest:45,dir:1,
+  frames:[{p:P({h:[30,144],s:[52,148],p:[92,149],e:[44,134],w:[34,140],k:[118,126],a:[136,151],f:[148,152],e2:[48,134],w2:[38,140],k2:[116,126],a2:[134,151],f2:[146,152]}),d:0,h:450},
+          {p:P({h:[88,92],s:[84,112],p:[92,149],e:[100,96],w:[84,86],k:[118,126],a:[136,151],f:[148,152],e2:[102,98],w2:[86,88],k2:[116,126],a2:[134,151],f2:[146,152]}),d:900,h:300},
+          {p:P({h:[30,144],s:[52,148],p:[92,149],e:[44,134],w:[34,140],k:[118,126],a:[136,151],f:[148,152],e2:[48,134],w2:[38,140],k2:[116,126],a2:[134,151],f2:[146,152]}),d:900,h:250}],
+  steps:[{t:'Nằm ngửa, co gối, bàn chân đặt sát sàn, hai tay đặt nhẹ sau đầu.',f:0},
+         {t:'Siết bụng, nâng vai và lưng trên lên khỏi sàn, mắt nhìn về phía đầu gối.',f:1},
+         {t:'Hạ xuống từ từ, giữ cơ bụng căng, rồi lặp lại.',f:2}],
+  tips:'Không kéo cổ bằng tay. Thở ra khi gập lên, hít vào khi hạ xuống.'});
+
+var JJ_STAND=P({h:[120,34],s:[120,54],p:[120,94],e:[107,70],w:[103,90],k:[113,124],a:[112,152],f:[104,153],e2:[133,70],w2:[137,90],k2:[127,124],a2:[128,152],f2:[136,153]});
+var JJ_OPEN=lift(P({h:[120,34],s:[120,54],p:[120,94],e:[101,37],w:[88,21],k:[104,123],a:[92,152],f:[84,153],e2:[139,37],w2:[152,21],k2:[136,123],a2:[148,152],f2:[156,153]}),-8);
+EX.push({id:'jumping-jack',name:'Nhảy dang tay chân',group:'Toàn thân · Khởi động',level:1,mode:'reps',sets:3,reps:20,rest:45,dir:0,
+  frames:[{p:JJ_STAND,d:0,h:200},{p:JJ_OPEN,d:300,h:100},{p:JJ_STAND,d:300,h:100}],
+  steps:[{t:'Đứng thẳng, hai chân khép, hai tay xuôi theo thân.',f:0},
+         {t:'Bật nhảy, dang hai chân rộng hơn vai, đồng thời giơ hai tay lên cao qua đầu.',f:1},
+         {t:'Bật nhảy về tư thế ban đầu. Giữ nhịp đều, tiếp đất nhẹ bằng mũi chân.',f:2}],
+  tips:'Bài khởi động tốt: làm 1 hiệp 30 – 40 lần trước khi tập chính.'});
+
+var MC_BASE={h:[155,104],s:[136,110],p:[99,125],e:[137,129],w:[138,150],e2:[141,129],w2:[142,150]};
+function mcPose(nearFwd){
+  var a=nearFwd?{k:[126,128],a:[106,152],f:[98,154],k2:[71,136],a2:[46,146],f2:[38,154]}:{k:[71,136],a:[46,146],f:[38,154],k2:[126,128],a2:[106,152],f2:[98,154]};
+  var o={},k;for(k in MC_BASE)o[k]=MC_BASE[k];for(k in a)o[k]=a[k];return P(o);
+}
+EX.push({id:'leo-nui',name:'Leo núi',group:'Bụng · Vai · Tim phổi',level:2,mode:'reps',sets:3,reps:20,rest:45,dir:1,
+  frames:[{p:mcPose(true),d:0,h:60},{p:mcPose(false),d:300,h:60},{p:mcPose(true),d:300,h:60}],
+  steps:[{t:'Vào tư thế chống tay như hít đất, thân thẳng, hai tay dưới vai.',f:0},
+         {t:'Kéo một đầu gối lên sát ngực, chân kia giữ thẳng phía sau.',f:0},
+         {t:'Đổi chân thật nhanh như đang chạy tại chỗ. Mỗi lần đổi tính là 1 lần.',f:1}],
+  tips:'Hông giữ thấp bằng vai, không nhô mông lên. Chậm lại nếu mất nhịp thở.'});
+
+/* ===== Dữ liệu bài tập (phần 2: kéo xà) + giáo án ===== */
+var BAR={y:26,x1:70,x2:170};
+var HANG=P({h:[120,48],s:[120,66],p:[120,106],e:[110,46],w:[100,26],k:[118,134],a:[119,162],f:[126,164],e2:[130,46],w2:[140,26],k2:[122,134],a2:[121,162],f2:[128,164]});
+var PULLED=P({h:[120,22],s:[120,44],p:[120,84],e:[104,46],w:[100,26],k:[119,112],a:[120,140],f:[127,142],e2:[136,46],w2:[140,26],k2:[121,112],a2:[122,140],f2:[129,142]});
+EX.push({id:'keo-xa-don',name:'Kéo xà đơn',group:'Lưng xô · Tay trước · Cơ lõi',level:3,mode:'reps',sets:3,reps:5,rest:90,dir:0,ground:172,rig:BAR,
+  frames:[{p:HANG,d:0,h:500},{p:PULLED,d:1100,h:350},{p:HANG,d:1300,h:300}],
+  steps:[{t:'Nắm xà rộng hơn vai một chút, lòng bàn tay hướng ra trước, treo người thẳng.',f:0},
+         {t:'Siết bả vai xuống, kéo khuỷu về phía hông, đưa cằm vượt qua xà.',f:1},
+         {t:'Hạ xuống chậm, duỗi thẳng tay hoàn toàn rồi lặp lại.',f:2}],
+  tips:'Chưa kéo được: tập treo xà và kéo xà úc trước. Không đung đưa người lấy đà.'});
+
+EX.push({id:'keo-xa-uc',name:'Kéo xà úc',group:'Lưng · Tay trước',level:2,mode:'reps',sets:3,reps:8,rest:60,dir:1,rig:{y:80,x1:128,x2:156},
+  frames:[{p:P({h:[151,106],s:[133,113],p:[98,128],e:[137,97],w:[140,80],k:[70,138],a:[44,148],f:[36,154],e2:[141,97],w2:[144,80],k2:[68,138],a2:[42,148],f2:[34,154]}),d:0,h:450},
+          {p:P({h:[158,88],s:[140,96],p:[106,122],e:[150,99],w:[140,80],k:[78,135],a:[50,148],f:[42,154],e2:[154,99],w2:[144,80],k2:[76,135],a2:[48,148],f2:[40,154]}),d:1000,h:350},
+          {p:P({h:[151,106],s:[133,113],p:[98,128],e:[137,97],w:[140,80],k:[70,138],a:[44,148],f:[36,154],e2:[141,97],w2:[144,80],k2:[68,138],a2:[42,148],f2:[34,154]}),d:1100,h:250}],
+  steps:[{t:'Nằm ngửa dưới xà thấp (ngang hông), nắm xà rộng bằng vai, gót chân chạm sàn.',f:0},
+         {t:'Giữ thân thẳng như tấm ván, kéo ngực lên chạm xà.',f:1},
+         {t:'Hạ xuống chậm đến khi tay duỗi thẳng rồi lặp lại.',f:2}],
+  tips:'Chân càng gần xà thì càng dễ; co gối để giảm độ khó. Có thể dùng bàn chắc chắn thay xà.'});
+
+EX.push({id:'treo-xa',name:'Treo xà',group:'Cẳng tay · Vai · Lưng',level:1,mode:'time',sets:3,reps:20,rest:60,dir:0,ground:172,rig:BAR,
+  frames:[{p:HANG,d:0,h:900},{p:lift(HANG,-5,['w','w2']),d:700,h:900}],
+  steps:[{t:'Nắm xà rộng bằng vai, treo người, hai chân khép.',f:0},
+         {t:'Đẩy vai ra xa tai, siết bả vai xuống và giữ người thẳng.',f:1},
+         {t:'Giữ đủ số giây, thở đều rồi thả xuống.',f:1}],
+  tips:'Bài nền để tập kéo xà: tăng dần đến 30 – 45 giây.'});
+
+/* ===== Giáo án 3 ngày / tuần ===== */
+var PROGRAMS=[
+  {id:'toan-than',name:'Toàn thân nhập môn',day:'Thứ 2',desc:'6 bài, khoảng 25 phút. Dành cho người mới.',
+   items:[{ex:'jumping-jack',sets:2,n:20},{ex:'squat',sets:3,n:12},{ex:'hit-dat',sets:3,n:8},{ex:'lunge',sets:3,n:10},{ex:'gap-bung',sets:3,n:12},{ex:'plank',sets:3,n:30}]},
+  {id:'than-tren',name:'Thân trên và kéo',day:'Thứ 4',desc:'5 bài, khoảng 25 phút. Cần xà hoặc bàn chắc.',
+   items:[{ex:'keo-xa-uc',sets:3,n:8},{ex:'hit-dat',sets:3,n:10},{ex:'treo-xa',sets:3,n:20},{ex:'plank',sets:3,n:40},{ex:'leo-nui',sets:3,n:20}]},
+  {id:'cardio',name:'Tim phổi và đốt năng lượng',day:'Thứ 6',desc:'5 bài, khoảng 20 phút. Nhịp nhanh, nghỉ ngắn.',
+   items:[{ex:'jumping-jack',sets:3,n:30},{ex:'squat',sets:3,n:15},{ex:'burpee',sets:3,n:8},{ex:'leo-nui',sets:3,n:24},{ex:'gap-bung',sets:3,n:15}]}
+];
+function exById(id){var i;for(i=0;i<EX.length;i++)if(EX[i].id===id)return EX[i];return null;}
+
+/* ===== Calis: lõi, danh sách, chi tiết bài ===== */
+var APP_VER='1.2 (06/11/2026)';
+var K_DATA='calis.v1',K_LOCAL='calis.local';
+function load(k,def){try{var s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+var DB=load(K_DATA,{history:[]});if(!DB.history)DB.history=[];
+var LOC=load(K_LOCAL,{sound:true,cfg:{},backup:''});if(!LOC.cfg)LOC.cfg={};
+function saveDB(){save(K_DATA,DB);}
+function saveLoc(){save(K_LOCAL,LOC);}
+function $(id){return document.getElementById(id);}
+function pad(n){return n<10?'0'+n:''+n;}
+function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function vnDate(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function toast(t){var e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(function(){e.remove();},2200);}
+function ask(title,msg,okText,danger,cb){
+  var m=document.createElement('div');m.className='modal';
+  m.innerHTML='<div class="box"><b style="font-size:18px">'+title+'</b><p style="margin:8px 0 0;color:#444">'+msg+'</p><div class="two"><button class="btn ghost" id="mNo">Bỏ qua</button><button class="btn" id="mYes" style="'+(danger?'background:#c62828':'')+'">'+okText+'</button></div></div>';
+  document.body.appendChild(m);
+  m.querySelector('#mNo').onclick=function(){m.remove();};
+  m.querySelector('#mYes').onclick=function(){m.remove();cb();};
+}
+var LV=['','Dễ','Vừa','Khó'];
+function cfgOf(ex){var c=LOC.cfg[ex.id];return c?{sets:c.sets,n:c.n}:{sets:ex.sets,n:ex.reps};}
+function unit(ex){return ex.mode==='time'?'giây':'lần';}
+
+/* ----- Điều hướng ----- */
+var TAB='ex',VIEW=null;
+function go(tab){TAB=tab;VIEW=null;render();window.scrollTo(0,0);}
+function render(){
+  var i,tabs=document.querySelectorAll('.tabs button');
+  for(i=0;i<tabs.length;i++)tabs[i].className=tabs[i].dataset.t===TAB?'on':'';
+  var m=$('main');m.innerHTML='';
+  if(VIEW&&VIEW.ex)return renderDetail(m,VIEW.ex);
+  if(TAB==='ex')renderList(m);
+  else if(TAB==='plan')renderPlans(m);
+  else if(TAB==='hist')renderHist(m);
+  else renderSettings(m);
+}
+
+/* ----- Danh sách bài tập ----- */
+var GROUPS=[{t:'Cơ bản',ids:['squat','gap-bung','plank','jumping-jack','hit-dat','lunge','leo-nui','burpee']},{t:'Kéo xà',ids:['treo-xa','keo-xa-uc','keo-xa-don']}];
+function renderList(m){
+  GROUPS.forEach(function(g){
+    var h=document.createElement('h2');h.textContent=g.t;m.appendChild(h);
+    g.ids.forEach(function(id){
+      var ex=exById(id),c=cfgOf(ex),card=document.createElement('div');
+      card.className='card row';card.style.cursor='pointer';
+      card.innerHTML='<svg class="thumb"></svg><div class="grow"><div class="name">'+ex.name+'</div><div class="sub">'+ex.group+'</div><div style="margin-top:4px"><span class="tag">'+LV[ex.level]+'</span><span class="tag">'+c.sets+' × '+c.n+' '+unit(ex)+'</span></div></div><span style="color:#c9bda3;font-size:22px">›</span>';
+      card.onclick=function(){VIEW={ex:ex};render();window.scrollTo(0,0);};
+      m.appendChild(card);
+      createPlayer(card.querySelector('svg'),ex,null,.8);
+    });
+  });
+  var n=document.createElement('div');n.className='note';
+  n.textContent='Khởi động 3 – 5 phút trước khi tập. Đau nhói hoặc chóng mặt thì dừng lại. Ứng dụng chỉ hướng dẫn chung, không thay lời khuyên của bác sĩ.';
+  m.appendChild(n);
+}
+
+/* ----- Chi tiết một bài ----- */
+function stepAt(ex,idx){var best=0,i;for(i=0;i<ex.steps.length;i++)if(ex.steps[i].f<=idx)best=i;return best;}
+function renderDetail(m,ex){
+  var c=cfgOf(ex);
+  var h='<button class="back" id="bk">‹ Danh sách bài tập</button>';
+  h+='<div class="hero"><svg id="hero"></svg><div class="cap" id="cap"></div></div>';
+  h+='<div class="card"><div class="name">'+ex.name+'</div><div class="sub">'+ex.group+' · '+LV[ex.level]+'</div>';
+  h+='<div class="inp"><span>Số hiệp</span><div class="st"><button id="sm">−</button><b id="sv">'+c.sets+'</b><button id="sp">+</button></div></div>';
+  h+='<div class="inp"><span>'+(ex.mode==='time'?'Số giây mỗi hiệp':'Số lần mỗi hiệp')+'</span><div class="st"><button id="nm">−</button><b id="nv">'+c.n+'</b><button id="np">+</button></div></div>';
+  h+='<button class="btn or" id="go">▶ Bắt đầu tập</button></div>';
+  h+='<h2>Các bước thực hiện</h2><div class="steps" id="steps"></div>';
+  h+='<div class="tip"><b>Lưu ý:</b> '+ex.tips+'</div>';
+  m.innerHTML=h;
+  $('bk').onclick=function(){VIEW=null;render();};
+  var stepEls=[];
+  ex.steps.forEach(function(s,i){
+    var d=document.createElement('div');d.className='step';
+    d.innerHTML='<svg></svg><b>BƯỚC '+(i+1)+'</b><span>'+s.t+'</span>';
+    $('steps').appendChild(d);stepEls.push(d);
+    drawStatic(d.querySelector('svg'),ex,s.f);
+  });
+  createPlayer($('hero'),ex,function(idx){
+    var si=stepAt(ex,idx),j;
+    $('cap').textContent='Bước '+(si+1)+': '+ex.steps[si].t;
+    for(j=0;j<stepEls.length;j++)stepEls[j].className='step'+(j===si?' on':'');
+  },1);
+  function upd(){LOC.cfg[ex.id]={sets:c.sets,n:c.n};saveLoc();$('sv').textContent=c.sets;$('nv').textContent=c.n;}
+  var step=ex.mode==='time'?5:1;
+  $('sm').onclick=function(){c.sets=Math.max(1,c.sets-1);upd();};
+  $('sp').onclick=function(){c.sets=Math.min(10,c.sets+1);upd();};
+  $('nm').onclick=function(){c.n=Math.max(step,c.n-step);upd();};
+  $('np').onclick=function(){c.n=Math.min(300,c.n+step);upd();};
+  $('go').onclick=function(){startRun([{ex:ex.id,sets:c.sets,n:c.n}],ex.name);};
+}
+
+/* ===== Calis: chế độ tập, giáo án, lịch sử, cài đặt ===== */
+var AC=null,WL=null,RUN=null;
+function beep(f,d){
+  if(!LOC.sound)return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    var o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.type='sine';
+    g.gain.value=.18;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d/1000);
+  }catch(e){}
+}
+function startRun(items,title){
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.resume)AC.resume();}catch(e){}
+  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){WL=l;}).catch(function(){});}catch(e){}
+  RUN={items:items,title:title,qi:0,set:1,phase:'work',sub:'',done:[],t0:Date.now(),end:0,len:0,iv:null};
+  beginWork();
+}
+function curItem(){var it=RUN.items[RUN.qi];return {it:it,ex:exById(it.ex)};}
+function beginWork(){
+  var c=curItem();RUN.phase='work';
+  if(c.ex.mode==='time'){RUN.sub='ready';RUN.len=3000;RUN.end=Date.now()+3000;}
+  else{RUN.sub='reps';RUN.end=0;}
+  runUI();
+}
+function beginRest(sec){RUN.phase='rest';RUN.len=sec*1000;RUN.end=Date.now()+RUN.len;runUI();}
+function completeSet(){
+  var c=curItem(),d=null,i;
+  for(i=0;i<RUN.done.length;i++)if(RUN.done[i].qi===RUN.qi)d=RUN.done[i];
+  if(!d){d={qi:RUN.qi,ex:c.it.ex,sets:0,n:c.it.n};RUN.done.push(d);}
+  d.sets++;beep(880,220);
+  if(RUN.set<c.it.sets){RUN.set++;beginRest(c.ex.rest);}
+  else if(RUN.qi<RUN.items.length-1){RUN.qi++;RUN.set=1;beginRest(c.ex.rest);}
+  else finishRun();
+}
+function skipExercise(){
+  if(RUN.qi<RUN.items.length-1){RUN.qi++;RUN.set=1;beginWork();}else finishRun();
+}
+function stopTimer(){if(RUN&&RUN.iv){clearInterval(RUN.iv);RUN.iv=null;}}
+function closeRun(){
+  stopTimer();var r=$('run');if(r)r.remove();
+  try{if(WL){WL.release();WL=null;}}catch(e){}
+  RUN=null;render();
+}
+function saveSession(){
+  if(!RUN.done.length)return null;
+  var s={id:uid(),date:ymd(new Date()),ts:Date.now(),title:RUN.title,mins:Math.max(1,Math.round((Date.now()-RUN.t0)/60000)),updated:Date.now(),
+    items:RUN.done.map(function(d){return {ex:d.ex,sets:d.sets,n:d.n};})};
+  DB.history.push(s);saveDB();return s;
+}
+function finishRun(){
+  stopTimer();beep(660,150);setTimeout(function(){beep(990,300);},200);
+  var s=saveSession(),r=$('run');
+  var h='<div class="top"><span>Hoàn thành</span></div><div class="big" style="font-size:56px">🎉</div><div class="lab"><b>'+RUN.title+'</b></div>';
+  if(s){
+    var sets=0;s.items.forEach(function(i){sets+=i.sets;});
+    h+='<div class="num"><div class="card"><b>'+s.mins+'</b>phút</div><div class="card"><b>'+sets+'</b>hiệp</div><div class="card"><b>'+s.items.length+'</b>bài</div></div><div style="margin-top:12px">';
+    s.items.forEach(function(i){var e=exById(i.ex);h+='<div class="sub" style="padding:2px 2px">'+e.name+' · '+i.sets+' × '+i.n+' '+unit(e)+'</div>';});
+    h+='</div>';
+  }else h+='<div class="empty">Chưa hoàn thành hiệp nào nên không lưu vào lịch sử.</div>';
+  h+='<div class="grid"><button class="btn or" id="fin">Xong</button></div>';
+  r.innerHTML=h;$('fin').onclick=function(){closeRun();go('hist');};
+}
+function exitRun(){
+  var msg=RUN.done.length?'Phần đã tập sẽ được lưu vào lịch sử.':'Chưa có hiệp nào hoàn thành nên sẽ không lưu.';
+  ask('Thoát buổi tập?',msg,'Thoát',true,function(){saveSession();closeRun();});
+}
+function fmtT(ms){var s=Math.max(0,Math.ceil(ms/1000));return s;}
+function runUI(){
+  stopTimer();
+  var r=$('run');if(!r){r=document.createElement('div');r.id='run';r.className='run';document.body.appendChild(r);}
+  var c=curItem(),ex=c.ex,it=c.it,n=RUN.items.length,h='';
+  h+='<div class="top"><span>Bài '+(RUN.qi+1)+'/'+n+' · Hiệp '+RUN.set+'/'+it.sets+'</span><span>'+RUN.title+'</span></div>';
+  if(RUN.phase==='rest'){
+    h+='<div class="lab rest" style="margin-top:14px"><b>NGHỈ</b></div><div class="big rest" id="big"></div><div class="bar"><i id="pb"></i></div>';
+    h+='<div class="lab">Kế tiếp: <b>'+ex.name+'</b>, hiệp '+RUN.set+'</div><div class="hero"><svg id="rs"></svg></div>';
+    h+='<div class="grid"><button class="btn or" id="skip">Bỏ qua nghỉ</button><button class="btn ghost" id="plus">+15 giây</button><button class="btn ghost" id="quit">Thoát</button></div>';
+  }else{
+    h+='<div class="name" style="text-align:center;margin-top:6px;font-size:22px">'+ex.name+'</div><div class="hero"><svg id="rs"></svg><div class="cap" id="rcap"></div></div>';
+    if(ex.mode==='reps'){
+      h+='<div class="big">'+it.n+'</div><div class="lab">lần · làm xong bấm “Xong hiệp”</div>';
+      h+='<div class="grid"><button class="btn or" id="done">✓ Xong hiệp</button><button class="btn ghost" id="next">Bỏ qua bài này</button><button class="btn ghost" id="quit">Thoát</button></div>';
+    }else{
+      h+='<div class="big" id="big"></div><div class="bar"><i id="pb"></i></div><div class="lab" id="lb"></div>';
+      h+='<div class="grid"><button class="btn or" id="done">✓ Xong sớm</button><button class="btn ghost" id="next">Bỏ qua bài này</button><button class="btn ghost" id="quit">Thoát</button></div>';
+    }
+  }
+  r.innerHTML=h;
+  createPlayer($('rs'),ex,function(idx){var cp=$('rcap');if(cp)cp.textContent='Bước '+(stepAt(ex,idx)+1)+': '+ex.steps[stepAt(ex,idx)].t;},1);
+  $('quit').onclick=exitRun;
+  if(RUN.phase==='rest'){
+    $('skip').onclick=function(){beginWork();};
+    $('plus').onclick=function(){RUN.end+=15000;RUN.len+=15000;};
+  }else{
+    $('done').onclick=function(){if(ex.mode==='time'&&RUN.sub==='ready')return;completeSet();};
+    $('next').onclick=skipExercise;
+  }
+  if(RUN.end){
+    var last=-1;
+    RUN.iv=setInterval(function(){
+      var left=RUN.end-Date.now(),s=fmtT(left),big=$('big');
+      if(big){big.textContent=s;}
+      var pb=$('pb');if(pb)pb.style.width=Math.max(0,Math.min(100,100*(1-left/RUN.len)))+'%';
+      var lb=$('lb');if(lb)lb.textContent=RUN.sub==='ready'?'Chuẩn bị…':'giây còn lại · giữ đều nhịp thở';
+      if(s!==last&&s<=3&&s>0)beep(660,120);
+      last=s;
+      if(left<=0){
+        stopTimer();
+        if(RUN.phase==='rest')beginWork();
+        else if(RUN.sub==='ready'){beep(990,250);RUN.sub='go';RUN.len=it.n*1000;RUN.end=Date.now()+RUN.len;runUI();}
+        else completeSet();
+      }
+    },200);
+  }
+}
+
+/* ----- Giáo án ----- */
+function renderPlans(m){
+  var h='<div class="note" style="margin:0 2px 10px">Gợi ý tập 3 buổi mỗi tuần, cách nhau ít nhất 1 ngày nghỉ. Mỗi buổi gồm các bài bên dưới, bấm bắt đầu để app dẫn từng hiệp và đếm giờ nghỉ.</div>';
+  m.innerHTML=h;
+  PROGRAMS.forEach(function(p){
+    var c=document.createElement('div');c.className='card';
+    var list='';p.items.forEach(function(i){var e=exById(i.ex);list+='<div class="sub" style="padding:2px 0">• '+e.name+' · '+i.sets+' × '+i.n+' '+unit(e)+'</div>';});
+    c.innerHTML='<span class="tag">'+p.day+'</span><div class="name" style="margin-top:4px">'+p.name+'</div><div class="sub" style="margin-bottom:6px">'+p.desc+'</div>'+list+'<div style="margin-top:10px"><button class="btn or" data-p="'+p.id+'">▶ Bắt đầu giáo án</button></div>';
+    c.querySelector('button').onclick=function(){startRun(p.items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};}),p.name);};
+    m.appendChild(c);
+  });
+}
+
+/* ----- Lịch sử ----- */
+function liveHist(){return DB.history.filter(function(s){return !s.deleted;}).sort(function(a,b){return b.ts-a.ts;});}
+function renderHist(m){
+  var hs=liveHist(),days={},i;
+  hs.forEach(function(s){days[s.date]=(days[s.date]||0)+1;});
+  var now=new Date(),wk=0,start=new Date(now);start.setDate(now.getDate()-((now.getDay()+6)%7));start.setHours(0,0,0,0);
+  hs.forEach(function(s){if(s.ts>=start.getTime())wk++;});
+  var d=new Date(now);if(!days[ymd(d)])d.setDate(d.getDate()-1);
+  var streak=0;while(days[ymd(d)]){streak++;d.setDate(d.getDate()-1);}
+  var h='<div class="num"><div class="card"><b>'+wk+'</b><span class="sub">buổi tuần này</span></div><div class="card"><b>'+streak+'</b><span class="sub">ngày liên tiếp</span></div><div class="card"><b>'+hs.length+'</b><span class="sub">tổng số buổi</span></div></div>';
+  h+='<h2>14 ngày gần nhất</h2><div class="card"><div class="days">';
+  var names=['CN','T2','T3','T4','T5','T6','T7'];
+  for(i=13;i>=0;i--){var x=new Date(now);x.setDate(now.getDate()-i);h+='<div class="dot'+(days[ymd(x)]?' on':'')+'"><i></i>'+pad(x.getDate())+'/'+pad(x.getMonth()+1)+'</div>';}
+  h+='</div></div><h2>Các buổi đã tập</h2>';
+  m.innerHTML=h;
+  if(!hs.length){var e=document.createElement('div');e.className='empty';e.textContent='Chưa có buổi nào. Hoàn thành một bài để bắt đầu ghi lịch sử.';m.appendChild(e);}
+  hs.forEach(function(s){
+    var c=document.createElement('div');c.className='card';
+    var sets=0,list='';s.items.forEach(function(i){sets+=i.sets;var e=exById(i.ex);list+='<div class="sub">'+(e?e.name:i.ex)+' · '+i.sets+' × '+i.n+'</div>';});
+    c.innerHTML='<div class="row"><div class="grow"><div class="name">'+s.title+'</div><div class="sub">'+vnDate(s.date)+' · '+s.mins+' phút · '+sets+' hiệp</div></div><button class="btn ghost sm" style="color:#c62828">Xóa</button></div><div style="margin-top:6px">'+list+'</div>';
+    c.querySelector('button').onclick=function(){ask('Xóa buổi tập?',vnDate(s.date)+' · '+s.title,'Xóa',true,function(){s.deleted=true;s.updated=Date.now();saveDB();render();});};
+    m.appendChild(c);
+  });
+}
+
+/* ----- Cài đặt, sao lưu ----- */
+function backupAge(){if(!LOC.backup)return null;return Math.floor((Date.now()-new Date(LOC.backup+'T00:00:00').getTime())/86400000);}
+function renderSettings(m){
+  var age=backupAge(),warn=(age===null||age>3);
+  var h='<div class="card"><div class="inp"><span>Âm báo (hết giờ, nghỉ)</span><button class="btn ghost sm" id="snd">'+(LOC.sound?'Đang bật':'Đang tắt')+'</button></div><div class="note" style="margin:0">Nếu không nghe tiếng, kiểm tra công tắc im lặng bên hông iPhone.</div></div>';
+  h+='<h2>Sao lưu lịch sử</h2><div class="card"><div class="sub" style="color:'+(warn?'#c62828':'#2e7d32')+'">'+(LOC.backup?'Sao lưu gần nhất: '+vnDate(LOC.backup)+(warn?' (đã quá 3 ngày)':''):'Chưa sao lưu lần nào')+'</div>';
+  h+='<div style="display:grid;gap:8px;margin-top:10px"><button class="btn" id="exp">Xuất file sao lưu</button><button class="btn ghost" id="imp">Nhập file sao lưu</button></div><input type="file" id="fi" accept=".json,application/json" style="display:none">';
+  h+='<div class="note">Dữ liệu chỉ nằm trong máy này. Xóa biểu tượng ngoài màn hình chính hoặc xóa dữ liệu Safari sẽ mất lịch sử, nên hãy sao lưu trước. Nhập file sẽ gộp thêm, không ghi đè.</div></div>';
+  h+='<h2>Hướng dẫn sử dụng</h2><div class="card" style="font-size:14px"><b>Bài tập:</b> bấm một bài để xem hình chuyển động và các bước, chỉnh số hiệp, số lần rồi bấm Bắt đầu tập.<br><b>Giáo án:</b> chạy liền nhiều bài, tự đếm giờ nghỉ.<br><b>Lịch sử:</b> tự ghi lại khi bạn hoàn thành hiệp.<br><b>Cài ra màn hình chính:</b> mở bằng Safari, bấm nút Chia sẻ, chọn “Thêm vào Màn hình chính”.</div>';
+  h+='<div class="note" style="text-align:center">Calis phiên bản '+APP_VER+'</div>';
+  m.innerHTML=h;
+  $('snd').onclick=function(){LOC.sound=!LOC.sound;saveLoc();render();if(LOC.sound)beep(660,120);};
+  $('exp').onclick=exportData;
+  $('imp').onclick=function(){$('fi').click();};
+  $('fi').onchange=function(ev){
+    var f=ev.target.files[0];if(!f)return;
+    var rd=new FileReader();rd.onload=function(){
+      try{
+        var d=JSON.parse(rd.result);if(!d||!d.history)throw 0;
+        var map={},add=0;DB.history.forEach(function(s){map[s.id]=s;});
+        d.history.forEach(function(s){
+          var o=map[s.id];
+          if(!o){DB.history.push(s);add++;}
+          else if((s.updated||0)>(o.updated||0)){for(var k in s)o[k]=s[k];}
+        });
+        saveDB();render();toast('Đã nhập, thêm '+add+' buổi mới');
+      }catch(e){toast('File không đúng định dạng');}
+    };rd.readAsText(f);
+  };
+}
+function exportData(){
+  var name='calis_'+ymd(new Date())+'.json';
+  var blob=new Blob([JSON.stringify({app:'calis',version:APP_VER,exported:new Date().toISOString(),history:DB.history})],{type:'application/json'});
+  var file;try{file=new File([blob],name,{type:'application/json'});}catch(e){file=null;}
+  function mark(){LOC.backup=ymd(new Date());saveLoc();render();}
+  if(file&&navigator.canShare&&navigator.canShare({files:[file]})){
+    navigator.share({files:[file],title:name}).then(mark).catch(function(){});
+  }else{
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();mark();
+  }
+}
+
+/* ----- Khởi động ----- */
+document.addEventListener('DOMContentLoaded',function(){
+  var bs=document.querySelectorAll('.tabs button'),i;
+  for(i=0;i<bs.length;i++)bs[i].onclick=function(){go(this.dataset.t);};
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
+  try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js');}catch(e){}
+  render();
+});
+
+</script>
+</body></html>
