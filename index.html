@@ -2,10 +2,10 @@
 <html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Calis"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Fox-calisthenics"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#E8A020">
 <link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-180.png">
-<title>Calis</title>
+<title>Fox-calisthenics</title>
 <style>:root{--or:#E8A020;--or2:#F29A1F;--cream:#FBF1E0;--ink:#1f2a44;--mut:#6b7488;--card:#fff;--ok:#2e7d32;--bad:#c62828;--pur:#8E5BD0}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
@@ -69,7 +69,7 @@ h2{font-size:15px;margin:14px 2px 8px;color:var(--ink)}
 .empty{color:var(--mut);font-size:13px;padding:6px 2px}
 </style></head>
 <body>
-<header><h1>Calis</h1><small>Calisthenics cơ bản cho người mới</small></header>
+<header><h1>Fox-calisthenics</h1><small>Calisthenics cơ bản cho người mới</small></header>
 <main id="main"></main>
 <nav class="tabs">
 <button data-t="ex"><b>🏋️</b>Bài tập</button>
@@ -324,8 +324,8 @@ var PROGRAMS=[
 ];
 function exById(id){var i;for(i=0;i<EX.length;i++)if(EX[i].id===id)return EX[i];return null;}
 
-/* ===== Calis: lõi, danh sách, chi tiết bài ===== */
-var APP_VER='1.2 (06/11/2026)';
+/* ===== Fox-calisthenics: lõi, danh sách, chi tiết bài ===== */
+var APP_VER='1.4 (06/11/2026)';
 var K_DATA='calis.v1',K_LOCAL='calis.local';
 function load(k,def){try{var s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
@@ -418,7 +418,7 @@ function renderDetail(m,ex){
   $('go').onclick=function(){startRun([{ex:ex.id,sets:c.sets,n:c.n}],ex.name);};
 }
 
-/* ===== Calis: chế độ tập, giáo án, lịch sử, cài đặt ===== */
+/* ===== Fox-calisthenics: chế độ tập, giáo án, lịch sử, cài đặt ===== */
 var AC=null,WL=null,RUN=null;
 function beep(f,d){
   if(!LOC.sound)return;
@@ -579,7 +579,7 @@ function renderSettings(m){
   h+='<div style="display:grid;gap:8px;margin-top:10px"><button class="btn" id="exp">Xuất file sao lưu</button><button class="btn ghost" id="imp">Nhập file sao lưu</button></div><input type="file" id="fi" accept=".json,application/json" style="display:none">';
   h+='<div class="note">Dữ liệu chỉ nằm trong máy này. Xóa biểu tượng ngoài màn hình chính hoặc xóa dữ liệu Safari sẽ mất lịch sử, nên hãy sao lưu trước. Nhập file sẽ gộp thêm, không ghi đè.</div></div>';
   h+='<h2>Hướng dẫn sử dụng</h2><div class="card" style="font-size:14px"><b>Bài tập:</b> bấm một bài để xem hình chuyển động và các bước, chỉnh số hiệp, số lần rồi bấm Bắt đầu tập.<br><b>Giáo án:</b> chạy liền nhiều bài, tự đếm giờ nghỉ.<br><b>Lịch sử:</b> tự ghi lại khi bạn hoàn thành hiệp.<br><b>Cài ra màn hình chính:</b> mở bằng Safari, bấm nút Chia sẻ, chọn “Thêm vào Màn hình chính”.</div>';
-  h+='<div class="note" style="text-align:center">Calis phiên bản '+APP_VER+'</div>';
+  h+='<div class="note" style="text-align:center">Fox-calisthenics phiên bản '+APP_VER+'</div>';
   m.innerHTML=h;
   $('snd').onclick=function(){LOC.sound=!LOC.sound;saveLoc();render();if(LOC.sound)beep(660,120);};
   $('exp').onclick=exportData;
@@ -601,8 +601,8 @@ function renderSettings(m){
   };
 }
 function exportData(){
-  var name='calis_'+ymd(new Date())+'.json';
-  var blob=new Blob([JSON.stringify({app:'calis',version:APP_VER,exported:new Date().toISOString(),history:DB.history})],{type:'application/json'});
+  var name='fox-calisthenics_'+ymd(new Date())+'.json';
+  var blob=new Blob([JSON.stringify({app:'Fox-calisthenics',version:APP_VER,exported:new Date().toISOString(),history:DB.history})],{type:'application/json'});
   var file;try{file=new File([blob],name,{type:'application/json'});}catch(e){file=null;}
   function mark(){LOC.backup=ymd(new Date());saveLoc();render();}
   if(file&&navigator.canShare&&navigator.canShare({files:[file]})){
