@@ -6,127 +6,188 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-180.png">
 <title>Fox-calisthenics</title>
-<style>:root{--ac:#1E6FE8;--ac2:#4C8DF0;--acl:#EAF2FF;--bg:#F4F6FA;--ink:#1f2a44;--mut:#6b7488;--card:#fff;--ok:#2e7d32;--bad:#c62828;--rest:#7B5BD6}
+<style>:root{--navy:#12306B;--bg:#f4f4f6;--line:#e3e5ea;--mut:#6b7280;--tint:#eef2fb;--ok:#2e7d32;--bad:#c62828;--rest:#7B5BD6;--ac:#12306B;--acl:#eef2fb}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
-body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
-header{background:#fff;color:var(--ink);padding:calc(12px + env(safe-area-inset-top)) 16px 10px;position:sticky;top:0;z-index:5;border-bottom:1px solid #E3E8F0}
-header h1{margin:0;font-size:22px;letter-spacing:.2px}
-header h1 span{color:var(--ac)}
-main{padding:12px 14px;max-width:640px;margin:0 auto}
-.tabs{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #E3E8F0;display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:6}
-.tabs button{flex:1;border:0;background:none;padding:9px 0 8px;font-size:12px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px}
-.tabs button b{font-size:20px;font-weight:400;filter:grayscale(1);opacity:.6}
-.tabs button.on{color:var(--ac);font-weight:700}
-.tabs button.on b{filter:none;opacity:1}
-.card{background:var(--card);border-radius:14px;padding:12px;margin:0 0 10px;box-shadow:0 1px 3px rgba(20,40,80,.08)}
+html,body{margin:0;height:100%;background:var(--bg);color:#111;font:16px/1.35 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;overscroll-behavior:none;touch-action:manipulation}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+button:disabled{opacity:.3;cursor:default}
+input,select,textarea{font:inherit;font-size:16px}
+#app{display:flex;flex-direction:column;height:100dvh}
+header{background:#fff;padding:calc(env(safe-area-inset-top) + 8px) 16px 8px;border-bottom:1px solid var(--line)}
+#ttl{font-weight:700;font-size:18px;color:var(--navy);line-height:1.2}
+main{flex:1;overflow-y:auto;padding:12px 14px 24px;-webkit-overflow-scrolling:touch}
+nav{display:flex;background:#fff;border-top:1px solid var(--line);padding:4px 4px calc(env(safe-area-inset-bottom) + 4px);z-index:6}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 0;border-radius:12px;font-size:12px;color:#444}
+nav button i{font-style:normal;font-size:20px;line-height:1.1;height:26px;display:flex;align-items:center;justify-content:center}
+nav button.on{background:var(--tint);color:var(--navy);font-weight:700}
+.card{background:#fff;border-radius:14px;padding:12px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
 .tap{cursor:pointer}
-.row{display:flex;align-items:center;gap:12px}
-.thumb{width:92px;height:64px;border-radius:10px;background:var(--acl);flex:none}
-.grow{flex:1;min-width:0}
-.chev{color:#B5C0D3;font-size:22px}
-.name{font-weight:700;font-size:17px}
+.sec{font-size:16px;font-weight:700;color:#111;margin:18px 2px 8px}
+.sec.tg{display:flex;align-items:center;gap:8px;text-align:left;padding:0 2px;margin:0}
+.sec.tg i{font-style:normal;font-size:12px;color:var(--mut)}
+.sech{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 2px 8px}
+.sech .sec{margin:0}
+.lk{color:var(--navy);font-weight:700;font-size:15px;padding:6px 12px;border-radius:999px;background:var(--tint)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hrow.sm{margin-top:8px;font-size:14px}
+.row{display:flex;align-items:center;gap:10px}
+.kick{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--mut)}
+.name{font-weight:700;font-size:16px}
 .sub{color:var(--mut);font-size:13px}
-.ok{color:var(--ok)}
-.amt{font-size:13px;font-weight:700;color:var(--ac);margin-top:3px}
-.lvl{font-size:12px;margin-top:3px;letter-spacing:1px}
-.lvl span{filter:grayscale(1);opacity:.35}
-.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:var(--acl);color:var(--ac);margin-right:4px}
-h2{font-size:16px;margin:16px 2px 8px;color:var(--ink)}
-.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;border-radius:12px;padding:13px;font-size:17px;font-weight:700;background:var(--ac);color:#fff}
-.btn.or{background:var(--ac)}
-.btn.ghost{background:#fff;color:var(--ink);border:1.5px solid #D5DDEA}
-.btn.sm{width:auto;padding:8px 14px;font-size:14px}
-.btn.wh{background:#fff;color:var(--ac);margin-top:12px}
-.hcard{background:linear-gradient(135deg,#1E6FE8,#4C8DF0);color:#fff;border-radius:16px;padding:16px;margin:0 0 10px;box-shadow:0 4px 14px rgba(30,111,232,.25);cursor:pointer}
-.hcard .hk{font-size:12px;font-weight:700;letter-spacing:1px;opacity:.85}
-.hcard .ht{font-size:24px;font-weight:800;margin:2px 0}
-.hcard .hs{font-size:14px;opacity:.9}
-.hcard .stats{display:flex;gap:10px;margin-top:12px}
-.hcard .stats div{flex:1;background:rgba(255,255,255,.16);border-radius:10px;padding:8px;text-align:center;font-size:13px}
-.hcard .stats b{display:block;font-size:20px}
-.banner{background:#FFF6E0;border:1px solid #F2D58A;border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.banner .btn{margin-left:auto}
+.amt{font-size:13px;font-weight:700;color:var(--navy);margin-top:2px}.amt.ok{color:var(--ok)}
+.chev{color:#999;font-size:22px}
+.grow{flex:1;min-width:0}
+.xr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.xr:last-child{border-bottom:0}
+.thumb{width:84px;height:58px;border-radius:10px;background:var(--tint);flex:none;object-fit:contain}
+img.thumb{background:#fff;border:1px solid var(--line)}
+.noimg{display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:22px;background:var(--tint)}
+.mrow{display:flex;align-items:center;gap:6px;padding:10px 0;border-bottom:1px solid var(--line)}.mrow:last-child{border-bottom:0}
+.prow{padding:10px 0;border-bottom:1px solid var(--line)}.prow:last-child{border-bottom:0}
+.mv{width:34px;height:32px;border-radius:8px;background:#e9ebf0;font-size:15px;margin-left:4px}
+.mv.x{color:var(--bad)}
+.ctl{display:flex;flex:none}
+.st{display:flex;align-items:center;gap:8px}
+.st button{width:34px;height:34px;border-radius:50%;border:1.5px solid #cfd3da;background:#fff;font-size:19px;color:#111}
+.st b{min-width:30px;text-align:center;font-size:17px}
+.inp{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0}
+.inp input[type=time]{padding:6px 8px;border:1px solid #cfd3da;border-radius:10px;background:#fff}
+.lb{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.nt{border:0;background:var(--tint);border-radius:10px;padding:10px;font-size:16px;font-family:inherit;color:#111}
+.nt.big{flex:1;min-width:0;font-size:22px}
+textarea.nt{resize:vertical;line-height:1.4}
+.seg{display:flex;background:#e9ebf0;border-radius:12px;padding:3px;margin:2px 0 6px}
+.seg button{flex:1;padding:8px 6px;border-radius:10px;font-weight:600;color:#555}
+.seg button.on{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{padding:7px 12px;border-radius:999px;border:1.5px solid #cfd3da;background:#fff;font-size:14px}
+.chips button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.icg{display:flex;flex-wrap:wrap;gap:6px}
+.icg button{width:40px;height:40px;border-radius:10px;background:#e9ebf0;font-size:20px}
+.icg button.on{background:var(--navy)}
+.imgbox{background:var(--tint);border-radius:12px;height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:8px}
+.imgbox img{max-width:100%;max-height:100%}
+.imgbox svg{width:100%;height:100%}
+.imgbox .noimg{background:none;font-size:14px}
+.two2{display:flex;gap:8px;flex-wrap:wrap}
+.two2 .primary{flex:1;margin:0}
+.primary{display:block;width:100%;background:var(--navy);color:#fff;font-weight:700;border-radius:999px;padding:13px;margin-top:12px;font-size:16px;text-align:center}
+.primary.sm{padding:9px 14px;font-size:15px}
+.primary.ghost{background:#e9ebf0;color:var(--navy)}
+.primary.chi{background:var(--bad);color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:700;background:var(--navy);color:#fff}
+.btn.ghost{background:#e9ebf0;color:var(--navy)}
+.btn.sm{font-size:14px}
+.or{background:var(--navy)}
+.stats{display:flex;gap:8px;margin-top:10px}
+.stats div{flex:1;background:var(--tint);border-radius:10px;padding:8px;text-align:center;font-size:13px;color:var(--mut)}
+.stats b{display:block;font-size:20px;color:var(--navy)}
+.warn{background:#fdecea;color:var(--bad);border-radius:10px;padding:10px;margin-bottom:12px;font-size:14px}
+.ok{background:#e8f5e9;color:var(--ok);border-radius:10px;padding:10px;margin-bottom:12px;font-size:14px}
+.note2{background:#fff6e0;border-radius:10px;padding:10px;margin-bottom:12px;font-size:14px}
+.tipbox{background:#fff;border-left:4px solid var(--navy);border-radius:10px;padding:10px 12px;font-size:13.5px;color:#333;margin:14px 0;line-height:1.5}
+.empty{text-align:center;color:var(--mut);padding:8px 0;font-size:13px}
+.note{font-size:12.5px;color:var(--mut);margin:8px 2px}
+.li{display:flex;align-items:center;gap:10px;width:100%;padding:13px 4px;border-bottom:1px solid var(--line);text-align:left}
+.li:last-child{border-bottom:0}
+.li i{font-style:normal;width:26px;text-align:center;font-size:20px}
+.li span{flex:1}.li em{font-style:normal;color:var(--mut);font-size:13px}
+.li:after{content:"›";color:#999;font-size:20px}
+.sw{position:relative;display:inline-block;width:50px;height:30px;flex:none;margin-left:6px}
+.sw input{opacity:0;width:0;height:0;position:absolute}
+.sw span{position:absolute;inset:0;background:#d5d8de;border-radius:15px;transition:.2s}
+.sw span:before{content:"";position:absolute;width:26px;height:26px;left:2px;top:2px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:.2s}
+.sw input:checked+span{background:var(--ok)}
+.sw input:checked+span:before{transform:translateX(20px)}
+.pk{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line)}.pk:last-child{border-bottom:0}
+.pk input{width:22px;height:22px;accent-color:var(--navy)}
 .week{display:flex;justify-content:space-between;margin-top:10px}
 .wd{text-align:center;font-size:12px;color:var(--mut);width:13%}
-.wd i{display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin:3px auto 0;border-radius:50%;background:var(--bg);font-style:normal;font-weight:700;color:var(--ink);font-size:14px}
-.wd.on i{background:var(--ac);color:#fff}
-.wd.td i{box-shadow:0 0 0 2px var(--ac)}
+.wd i{display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin:3px auto 0;border-radius:50%;background:var(--bg);font-style:normal;font-weight:700;color:#111;font-size:14px}
+.wd.on i{background:var(--navy);color:#fff}
+.wd.td i{box-shadow:0 0 0 2px var(--navy)}
+.bar{height:6px;background:#e3e5ea;border-radius:3px;margin:10px 0 0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy)}
 .cgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
-.cd{border:0;border-radius:12px;background:var(--bg);padding:8px 0 6px;font-size:18px;font-weight:800;color:var(--ink);display:flex;flex-direction:column;align-items:center}
+.cd{border-radius:12px;background:var(--bg);padding:8px 0 6px;font-size:18px;font-weight:800;display:flex;flex-direction:column;align-items:center}
 .cd small{font-size:10.5px;font-weight:600;color:var(--mut)}
-.cd.done{background:var(--ac);color:#fff}.cd.done small{color:#dfe9ff}
-.cd.cur{box-shadow:inset 0 0 0 2px var(--ac)}
-.cd.sel{outline:3px solid #F2994A;outline-offset:1px}
+.cd.done{background:var(--navy);color:#fff}.cd.done small{color:#cfd8ef}
+.cd.cur{box-shadow:inset 0 0 0 2px var(--navy)}
+.cd.sel{outline:3px solid #ef8a17;outline-offset:1px}
 .cd.lock{opacity:.45}
-.hero{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(20,40,80,.08)}
-.hero svg{width:100%;display:block;background:var(--acl)}
-.hero .cap{background:var(--ac);color:#fff;padding:8px 12px;font-weight:700;min-height:44px;font-size:15px}
+.hero{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.hero svg,.hero img,.hero .noimg{width:100%;display:block;background:var(--tint)}
+.hero img{max-height:320px;object-fit:contain;background:#fff}
+.hero .noimg{height:180px}
+.hero .cap{background:var(--navy);color:#fff;padding:8px 12px;font-weight:600;min-height:42px;font-size:14.5px}
 .steps{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.step{background:#fff;border-radius:12px;padding:8px;box-shadow:0 1px 3px rgba(20,40,80,.08);transition:.2s}
-.step.on{outline:3px solid var(--ac)}
-.step svg{width:100%;background:var(--acl);border-radius:8px}
-.step b{display:block;color:var(--ac);font-size:13px;margin:4px 0 2px}
+.step{background:#fff;border-radius:12px;padding:8px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.step.on{outline:2.5px solid var(--navy)}
+.step svg,.step img{width:100%;background:var(--tint);border-radius:8px}
+.step b{display:block;color:var(--navy);font-size:13px;margin:4px 0 2px}
 .step span{font-size:13.5px}
-.tip{background:var(--acl);border-left:4px solid var(--ac);padding:10px 12px;border-radius:8px;font-size:14px;margin:12px 0}
-.inp{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0}
-.inp .st{display:flex;align-items:center;gap:10px}
-.inp .st button{width:36px;height:36px;border-radius:50%;border:1.5px solid #D5DDEA;background:#fff;font-size:20px;color:var(--ink)}
-.inp .st b{min-width:34px;text-align:center;font-size:18px}
-.inp input[type=time]{font-size:16px;padding:6px 8px;border:1.5px solid #D5DDEA;border-radius:10px;background:#fff;color:var(--ink)}
 .days2{display:flex;gap:6px;justify-content:space-between}
-.dd{flex:1;border:1.5px solid #D5DDEA;background:#fff;border-radius:10px;padding:8px 0;font-size:13px;font-weight:700;color:var(--mut)}
-.dd.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.back{border:0;background:none;color:var(--ac);font-size:16px;font-weight:700;padding:4px 0 10px}
+.dd{flex:1;border:1.5px solid #cfd3da;background:#fff;border-radius:10px;padding:8px 0;font-size:13px;font-weight:700;color:var(--mut)}
+.dd.on{background:var(--navy);border-color:var(--navy);color:#fff}
+#page{position:fixed;inset:0;background:var(--bg);z-index:15;display:none;flex-direction:column}
+#page.show{display:flex}
+.ph{background:#fff;padding:calc(env(safe-area-inset-top) + 8px) 8px 8px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line)}
+.ph button{font-size:28px;width:40px;height:36px;color:var(--navy)}
+#ptt{font-weight:700;font-size:17px;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pb{flex:1;overflow-y:auto;padding:12px 14px 20px;-webkit-overflow-scrolling:touch}
+.pf{background:#fff;border-top:1px solid var(--line);padding:8px 14px calc(env(safe-area-inset-bottom) + 8px)}
+.pf button{display:block;width:100%;padding:12px;border-radius:999px;background:var(--navy);color:#fff;font-weight:700}
 .run{position:fixed;inset:0;background:var(--bg);z-index:20;display:flex;flex-direction:column;padding:calc(10px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom))}
 .run .top{display:flex;justify-content:space-between;color:var(--mut);font-size:14px}
-.run .big{font-size:76px;font-weight:800;text-align:center;line-height:1;margin:6px 0;color:var(--ink)}
+.run .big{font-size:76px;font-weight:800;text-align:center;line-height:1;margin:6px 0;color:var(--navy)}
 .run .lab{text-align:center;color:var(--mut);margin-bottom:8px}
 .run .hero{margin:6px 0}
 .run .grid{margin-top:auto;display:grid;gap:8px}
-.bar{height:6px;background:#DCE3EE;border-radius:3px;margin:8px 0 6px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--ac)}
-.bar.w{background:rgba(255,255,255,.3)}.bar.w i{background:#fff}
+.run .btn{display:flex;width:100%;padding:13px;font-size:17px}
 .rest{color:var(--rest)}
 .num{display:flex;gap:10px}
 .num .card{flex:1;text-align:center;margin:0}
-.num b{display:block;font-size:24px;color:var(--ac)}
+.num b{display:block;font-size:24px;color:var(--navy)}
 .big2{font-size:28px;font-weight:800}.big2 small{font-size:15px;color:var(--mut);font-weight:600}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px;text-align:center;font-size:14px}
 .cal .ch{font-size:11px;color:var(--mut)}
-.cday{padding:6px 0;border-radius:50%;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
-.cday.on{background:var(--ac);color:#fff;font-weight:700}
-.cday.td{box-shadow:inset 0 0 0 2px var(--ac)}
+.cday{border-radius:50%;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.cday.on{background:var(--navy);color:#fff;font-weight:700}
+.cday.td{box-shadow:inset 0 0 0 2px var(--navy)}
 .chart{width:100%;margin-top:10px}
-.chart .ct{font-size:13px;font-weight:700;fill:var(--ink)}
+.chart .ct{font-size:13px;font-weight:700;fill:#111}
 .chart .ax{font-size:11px;fill:var(--mut)}
-.chart .gl{stroke:#E3E8F0}
-.chart .ln{fill:none;stroke:var(--ac);stroke-width:2.5;stroke-linejoin:round}
-.chart .dt{fill:#fff;stroke:var(--ac);stroke-width:2}
+.chart .gl{stroke:#e3e5ea}
+.chart .ln{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-linejoin:round}
+.chart .dt{fill:#fff;stroke:var(--navy);stroke-width:2}
 .bmi{position:relative;height:10px;border-radius:5px;margin:14px 0 4px;background:linear-gradient(90deg,#2F7BEA 0%,#2F7BEA 14%,#2e7d32 14%,#2e7d32 40%,#E8A020 40%,#E8A020 60%,#c62828 60%)}
-.bmi i{position:absolute;top:-5px;width:4px;height:20px;margin-left:-2px;background:var(--ink);border-radius:2px}
+.bmi i{position:absolute;top:-5px;width:4px;height:20px;margin-left:-2px;background:#111;border-radius:2px}
 .bmil{position:relative;height:14px;font-size:11px;color:var(--mut)}
 .bmil span{position:absolute;transform:translateX(-50%)}
 .bmil span:nth-child(1){left:0;transform:none}.bmil span:nth-child(2){left:14%}.bmil span:nth-child(3){left:40%}.bmil span:nth-child(4){left:60%}.bmil span:nth-child(5){right:0;transform:none}
 .guide{font-size:14px;line-height:1.55}
-.note{font-size:12.5px;color:var(--mut);margin:6px 2px}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:20px;font-size:14px;z-index:50}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;display:flex;align-items:center;justify-content:center;padding:24px}
-.modal .box{background:#fff;border-radius:16px;padding:18px;width:100%;max-width:360px}
-.modal .two{display:flex;gap:10px;margin-top:14px}
-.modal input{flex:1;font-size:22px;padding:10px 12px;border:1.5px solid #D5DDEA;border-radius:10px;min-width:0}
-.empty{color:var(--mut);font-size:13px;padding:6px 2px}
-@media (max-width:359px){.thumb{width:76px;height:54px}.name{font-size:16px}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translateX(-50%);background:#222;color:#fff;padding:9px 16px;border-radius:20px;font-size:14px;z-index:50;max-width:90%;text-align:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;display:flex;align-items:center;justify-content:center;padding:20px}
+.dlg{background:#fff;border-radius:16px;padding:16px;width:100%;max-width:360px;max-height:88dvh;overflow-y:auto}
+.dlg h2{margin:0 0 8px;font-size:18px;color:var(--navy)}
+.dlg .bt{display:flex;gap:10px;margin-top:14px}
+.dlg .bt button{flex:1;padding:11px;border-radius:12px;background:#e9ebf0;font-weight:700}
+.dlg .bt button.pr{background:var(--navy);color:#fff}.dlg .bt button.dg{background:var(--bad);color:#fff}
+@media (max-width:359px){.thumb{width:70px;height:50px}.name{font-size:15px}.mv{width:30px}}
+.editing .thumb{width:54px;height:40px}.editing .name{font-size:15px}
 </style></head>
 <body>
-<header><h1><span>Fox</span>-calisthenics</h1></header>
+<div id="app">
+<header><div id="ttl">Fox-calisthenics</div></header>
 <main id="main"></main>
-<nav class="tabs">
-<button data-t="home"><b>🏋️</b>Huấn luyện</button>
-<button data-t="lib"><b>📋</b>Bài tập</button>
-<button data-t="rep"><b>📈</b>Báo cáo</button>
-<button data-t="set"><b>⚙️</b>Cài đặt</button>
+<nav>
+<button data-t="home"><i>🏋️</i>Huấn luyện</button>
+<button data-t="lib"><i>📋</i>Bài tập</button>
+<button data-t="rep"><i>📊</i>Báo cáo</button>
+<button data-t="set"><i>⋯</i>Cài đặt</button>
 </nav>
+</div>
+<div id="page"><div class="ph"><button id="pback" aria-label="Quay lại">‹</button><div id="ptt"></div></div><div class="pb" id="pbody"></div><div class="pf"><button id="pexit">Thoát</button></div></div>
 <script>/* ===== Bộ vẽ người (SVG) + chạy chuyển động lặp ===== */
 var ORDER=['h','s','p','e','w','k','a','f','e2','w2','k2','a2','f2'];
 var COL={skin:'#F0B98A',skinF:'#D9996A',top:'#2F7BEA',topF:'#1F5FC0',sh:'#2B3550',shF:'#1C2438',shoe:'#F2994A',shoeF:'#D17A2E',hair:'#4A2E18',bar:'#9AA3B5',gr:'#D6DEEC',box:'#C9D3E6',boxE:'#9AA8C2'};
@@ -615,111 +676,218 @@ function chDay(d){   // d = 1..30; trả về null nếu là ngày nghỉ
 }
 function planMins(items){var s=0;items.forEach(function(it){var ex=exById(it.ex);s+=exSecs(ex,it.sets,it.n)+ex.rest*Math.max(0,it.sets-1)+ex.rest;});return Math.max(1,Math.round(s/60));}
 
-/* ===== Fox-calisthenics: lõi, điều hướng, Huấn luyện, Thư viện, chi tiết bài ===== */
-var APP_VER='2.0 (07/11/2026)';
+/* ===== Fox-calisthenics 3: lõi dữ liệu ===== */
+var APP_VER='3.0 (07/11/2026)';
 var K_DATA='calis.v1',K_LOCAL='calis.local';
 function load(k,def){try{var s=localStorage.getItem(k);return s?JSON.parse(s):def;}catch(e){return def;}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-var DB=load(K_DATA,{});
-if(!DB.history)DB.history=[];if(!DB.weights)DB.weights=[];if(!DB.ch)DB.ch={done:{}};if(!DB.ch.done)DB.ch.done={};if(!DB.prof)DB.prof={h:0,updated:0};
-var LOC=load(K_LOCAL,{});
-if(LOC.sound===undefined)LOC.sound=true;if(!LOC.cfg)LOC.cfg={};if(!LOC.backup)LOC.backup='';
-if(!LOC.goal)LOC.goal=3;if(!LOC.rem)LOC.rem={on:false,time:'19:00',days:[1,3,5]};
-function saveDB(){save(K_DATA,DB);}
-function saveLoc(){save(K_LOCAL,LOC);}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){toast('Bộ nhớ máy đã đầy, chưa lưu được');return false;}}
 function $(id){return document.getElementById(id);}
 function pad(n){return n<10?'0'+n:''+n;}
 function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function today(){return ymd(new Date());}
 function vnDate(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function fmtNum(x,dec){var s=(dec?x.toFixed(dec):String(Math.round(x))).split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');return s.join(',');}
+function noAcc(s){return String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().trim();}
 function toast(t){var e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(function(){e.remove();},2200);}
 function ask(title,msg,okText,danger,cb){
   var m=document.createElement('div');m.className='modal';
-  m.innerHTML='<div class="box"><b style="font-size:18px">'+title+'</b><p style="margin:8px 0 0;color:#444">'+msg+'</p><div class="two"><button class="btn ghost" id="mNo">Bỏ qua</button><button class="btn" id="mYes" style="'+(danger?'background:#c62828':'')+'">'+okText+'</button></div></div>';
+  m.innerHTML='<div class="dlg"><h2>'+title+'</h2><p class="sub" style="margin:0">'+msg+'</p><div class="bt"><button id="mNo">Bỏ qua</button><button class="'+(danger?'dg':'pr')+'" id="mYes">'+okText+'</button></div></div>';
   document.body.appendChild(m);
   m.querySelector('#mNo').onclick=function(){m.remove();};
   m.querySelector('#mYes').onclick=function(){m.remove();cb();};
 }
+
+/* ----- Dữ liệu ----- */
+var DB=load(K_DATA,{});
+['history','weights','cex','groups','plans'].forEach(function(k){if(!Array.isArray(DB[k]))DB[k]=[];});
+if(!DB.ch)DB.ch={done:{}};if(!DB.ch.done)DB.ch.done={};
+if(!DB.prof)DB.prof={h:0,updated:0};
+if(!DB.exo)DB.exo={};if(!DB.gorder)DB.gorder={};if(!DB.pdone)DB.pdone={};
+var DEF_TIPS='Khởi động 3 – 5 phút trước khi tập.\nĐau nhói hoặc chóng mặt thì dừng lại.\nỨng dụng chỉ hướng dẫn chung, không thay lời khuyên của bác sĩ.';
+if(DB.tips===undefined)DB.tips={text:DEF_TIPS,updated:0};
+var LOC=load(K_LOCAL,{});
+if(LOC.sound===undefined)LOC.sound=true;if(!LOC.cfg)LOC.cfg={};if(!LOC.backup)LOC.backup='';
+if(!LOC.goal)LOC.goal=3;if(!LOC.rem)LOC.rem={on:false,time:'19:00',days:[1,3,5]};
+function saveDB(){return save(K_DATA,DB);}
+function saveLoc(){save(K_LOCAL,LOC);}
+
+/* ----- Nhóm cơ ----- */
+if(!DB.groups.length){PARTS.forEach(function(p,i){DB.groups.push({id:p.id,name:p.name,ic:p.ic,updated:0});});}
+function groups(){return DB.groups.filter(function(g){return !g.deleted;});}
+function groupById(id){for(var i=0;i<DB.groups.length;i++)if(DB.groups[i].id===id)return DB.groups[i];return null;}
+
+/* ----- Bài tập: mặc định + chỉnh sửa + bài tự thêm ----- */
+var DEF={},EDIT_KEYS=['name','group','parts','mode','sets','reps','level','rest','desc','img','hidden'];
+EX.forEach(function(ex){var d={};EDIT_KEYS.forEach(function(k){d[k]=ex[k];});d.parts=ex.parts.slice();d.steps=ex.steps;DEF[ex.id]=d;ex.builtin=true;});
+function applyEx(ex,o){EDIT_KEYS.forEach(function(k){if(o[k]!==undefined)ex[k]=o[k];});
+  if(!ex.builtin||ex.desc){ex.steps=[{t:ex.desc||'Thực hiện theo hình minh họa.',f:0}];}
+  if(!ex.tips)ex.tips='Giữ đúng tư thế, thở đều. Mỏi quá thì giảm số lần.';
+  if(!ex.met)ex.met=4;if(!ex.spr)ex.spr=ex.mode==='time'?1:3;if(!ex.rest)ex.rest=45;if(!ex.group)ex.group=groupNames(ex.parts);}
+function groupNames(parts){return parts.map(function(p){var g=groupById(p);return g&&!g.deleted?g.name:'';}).filter(Boolean).join(' · ');}
+function syncEx(){
+  EX.forEach(function(ex){if(ex.builtin){var d=DEF[ex.id];EDIT_KEYS.forEach(function(k){ex[k]=k==='parts'?d.parts.slice():d[k];});ex.steps=d.steps;
+    var o=DB.exo[ex.id];if(o)applyEx(ex,o);}});
+  DB.cex.forEach(function(c){var ex=exById(c.id);if(!ex){ex={id:c.id,frames:null,dir:1};EX.push(ex);}
+    applyEx(ex,c);ex.hidden=!!c.deleted;ex.group=groupNames(ex.parts);});
+}
+function exVisible(){return EX.filter(function(ex){return !ex.hidden;});}
+
+/* ----- Ảnh / GIF lưu trong IndexedDB ----- */
+var MEDIA={},IDB=null;
+function idbOpen(cb){
+  try{var r=indexedDB.open('fox-calisthenics',1);
+    r.onupgradeneeded=function(){r.result.createObjectStore('media');};
+    r.onsuccess=function(){IDB=r.result;cb();};r.onerror=function(){cb();};}catch(e){cb();}
+}
+function mediaLoadAll(cb){
+  if(!IDB)return cb();
+  try{var tx=IDB.transaction('media','readonly'),st=tx.objectStore('media'),rq=st.openCursor();
+    rq.onsuccess=function(){var c=rq.result;if(c){MEDIA[c.key]=c.value;c.continue();}else cb();};rq.onerror=function(){cb();};}catch(e){cb();}
+}
+function mediaPut(key,val){
+  if(val)MEDIA[key]=val;else delete MEDIA[key];
+  if(!IDB)return;
+  try{var tx=IDB.transaction('media','readwrite');if(val)tx.objectStore('media').put(val,key);else tx.objectStore('media').delete(key);}catch(e){}
+}
+function readImage(file,cb){
+  if(!file)return;
+  var isGif=/gif$/i.test(file.type)||/\.gif$/i.test(file.name);
+  if(isGif){if(file.size>4*1024*1024){toast('GIF lớn hơn 4 MB, hãy chọn file nhỏ hơn');return;}
+    var fr=new FileReader();fr.onload=function(){cb(fr.result);};fr.readAsDataURL(file);return;}
+  var url=URL.createObjectURL(file),img=new Image();
+  img.onload=function(){var k=Math.min(1,720/Math.max(img.width,img.height)),c=document.createElement('canvas');
+    c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    URL.revokeObjectURL(url);cb(c.toDataURL('image/jpeg',.85));};
+  img.onerror=function(){toast('Không đọc được ảnh này');};img.src=url;
+}
+
+/* ----- Hiển thị hình: hoạt hình hoặc ảnh ----- */
+var _createPlayer=createPlayer,_drawStatic=drawStatic;
+function toImg(svg,ex){
+  var src=MEDIA['ex:'+ex.id],el;
+  if(src){el=document.createElement('img');el.src=src;el.alt=ex.name;}
+  else{el=document.createElement('div');el.className='noimg';el.textContent='🏋️';}
+  el.className=(svg.getAttribute('class')||'')+' '+(src?'mimg':'noimg');if(svg.id)el.id=svg.id;
+  svg.parentNode.replaceChild(el,svg);return el;
+}
+createPlayer=function(svg,ex,onStep,speed){
+  if(MEDIA['ex:'+ex.id]||!ex.frames){toImg(svg,ex);if(onStep)onStep(0);return null;}
+  return _createPlayer(svg,ex,onStep,speed);
+};
+drawStatic=function(svg,ex,i){if(MEDIA['ex:'+ex.id]||!ex.frames){toImg(svg,ex);return;}_drawStatic(svg,ex,i);};
+
+/* ----- Giáo án ----- */
+if(!DB.seeded){
+  PROGRAMS.forEach(function(p){var pt=PARTS.filter(function(x){return x.id===p.part;})[0],lv=LEVELS.filter(function(l){return l.id===p.level;})[0];
+    DB.plans.push({id:'s-'+p.id,name:pt.name+' – '+lv.name,items:p.items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};}),updated:0});});
+  DB.seeded=1;saveDB();
+}
+function plans(){return DB.plans.filter(function(p){return !p.deleted;});}
+function planById(id){for(var i=0;i<DB.plans.length;i++)if(DB.plans[i].id===id)return DB.plans[i];return null;}
+function planItems(p){return p.items.filter(function(i){return exById(i.ex);});}
+function pdState(pid){var s=DB.pdone[pid];if(!s||s.date!==today()){s={date:today(),done:{}};DB.pdone[pid]=s;}return s;}
+function pdCount(p){var s=DB.pdone[p.id];if(!s||s.date!==today())return 0;var c=0;p.items.forEach(function(it,i){if(s.done[i])c++;});return c;}
+function setPlanDone(p,idx,val,fromRun){
+  var s=pdState(p.id);if(val)s.done[idx]=1;else delete s.done[idx];
+  var all=p.items.length&&p.items.every(function(it,i){return s.done[i];}),hid='pd-'+p.id+'-'+s.date,h=null;
+  DB.history.forEach(function(x){if(x.id===hid)h=x;});
+  if(all&&!fromRun){
+    var items=planItems(p),kc=0;items.forEach(function(it){kc+=exKcal(exById(it.ex),it.sets,it.n,curKg()||60);});
+    var rec={id:hid,date:s.date,ts:Date.now(),title:p.name,mins:planMins(items),kcal:Math.round(kc),src:'plan',key:p.id,updated:Date.now(),items:items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};})};
+    if(h){for(var k in rec)h[k]=rec[k];h.deleted=false;}else DB.history.push(rec);
+  }else if(!all&&h&&!h.deleted){h.deleted=true;h.updated=Date.now();}
+  saveDB();
+}
+
+/* ----- Lịch sử, cân nặng ----- */
 var LV=['','Dễ','Vừa','Khó'];
 function cfgOf(ex){var c=LOC.cfg[ex.id];return c?{sets:c.sets,n:c.n}:{sets:ex.sets,n:ex.reps};}
 function unit(ex){return ex.mode==='time'?'giây':'lần';}
 function amount(ex,n){return ex.mode==='time'?(n>=60?Math.floor(n/60)+':'+pad(n%60):'00:'+pad(n)):'× '+n;}
-function curKg(){var w=liveW();return w.length?w[w.length-1].kg:0;}
 function liveW(){return DB.weights.filter(function(w){return !w.deleted;}).sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0;});}
+function curKg(){var w=liveW();return w.length?w[w.length-1].kg:0;}
 function liveHist(){return DB.history.filter(function(s){return !s.deleted;}).sort(function(a,b){return b.ts-a.ts;});}
 function sessKcal(s){if(s.kcal!==undefined)return s.kcal;var k=0;(s.items||[]).forEach(function(i){var e=exById(i.ex);if(e)k+=exKcal(e,i.sets,i.n,curKg()||60);});return k;}
 function doneDays(){var d={};liveHist().forEach(function(s){d[s.date]=1;});return d;}
+function chCurrent(){for(var d=1;d<=30;d++)if(!DB.ch.done[d])return d;return 31;}
 
-/* ----- Điều hướng: TAB + ngăn xếp trang ----- */
-var TAB='home',STACK=[];
-function go(tab){TAB=tab;STACK=[];render();window.scrollTo(0,0);}
-function push(v){STACK.push(v);render();window.scrollTo(0,0);}
-function back(){STACK.pop();render();window.scrollTo(0,0);}
-function backBtn(m,label){var b=document.createElement('button');b.className='back';b.textContent='‹ '+label;b.onclick=back;m.appendChild(b);}
+/* ===== Fox-calisthenics 3: khung giao diện, Huấn luyện, Giáo án ===== */
+var TAB='home';
+function go(tab){TAB=tab;render();$('main').scrollTop=0;}
 function render(){
-  var i,tabs=document.querySelectorAll('.tabs button');
+  var i,tabs=document.querySelectorAll('nav button');
   for(i=0;i<tabs.length;i++)tabs[i].className=tabs[i].dataset.t===TAB?'on':'';
   var m=$('main');m.innerHTML='';
-  var v=STACK[STACK.length-1];
-  if(v){if(v.t==='ex')return renderDetail(m,exById(v.id));if(v.t==='prog')return renderProg(m,v.id);if(v.t==='ch')return renderCh(m);}
-  if(TAB==='home')renderHome(m);
-  else if(TAB==='lib')renderList(m);
-  else if(TAB==='rep')renderReport(m);
-  else renderSettings(m);
+  if(TAB==='home')renderHome(m);else if(TAB==='lib')renderLib(m);else if(TAB==='rep')renderReport(m);else renderSettings(m);
+  if(PAGES.length)renderPage();
+}
+
+/* ----- Trang riêng toàn màn hình (kiểu Fox-finance) ----- */
+var PAGES=[];
+function openPage(title,fn,opt){PAGES.push({title:title,fn:fn,opt:opt||{}});renderPage();$('pbody').scrollTop=0;}
+function popPage(){PAGES.pop();if(PAGES.length)renderPage();else{$('page').className='';render();}}
+function closeAll(){PAGES=[];$('page').className='';render();}
+function renderPage(){
+  var p=PAGES[PAGES.length-1],b=$('pbody'),st=b.scrollTop;
+  $('page').className='show';$('ptt').textContent=typeof p.title==='function'?p.title():p.title;b.innerHTML='';p.fn(b);
+  var f=$('pexit');f.textContent=p.opt.foot||'Thoát';f.className=p.opt.danger?'dg':'';
+  f.onclick=function(){if(p.opt.onFoot){if(p.opt.onFoot()===false)return;}popPage();};
+  b.scrollTop=st;
 }
 
 /* ----- Thẻ bài tập dùng chung ----- */
-function exRow(ex,right,onclick,speed){
-  var c=document.createElement('div');c.className='card row tap';
-  c.innerHTML='<svg class="thumb"></svg><div class="grow"><div class="name">'+ex.name+'</div><div class="sub">'+ex.group+'</div>'+(right?'<div class="amt">'+right+'</div>':'')+'</div><span class="chev">›</span>';
-  c.onclick=onclick;
+function exRow(ex,right,onclick){
+  var c=document.createElement('div');c.className='xr';
+  c.innerHTML='<svg class="thumb"></svg><div class="grow"><div class="name">'+esc(ex.name)+'</div><div class="sub">'+esc(ex.group||'')+'</div>'+(right?'<div class="amt">'+right+'</div>':'')+'</div>';
+  if(onclick){c.classList.add('tap');c.onclick=onclick;}
   return c;
 }
 function addPlayer(c,ex,speed){createPlayer(c.querySelector('svg'),ex,null,speed||.8);}
 
-/* ----- Trang Huấn luyện ----- */
+/* ----- Tab Huấn luyện ----- */
 function weekStart(d){var s=new Date(d);s.setHours(0,0,0,0);s.setDate(s.getDate()-((s.getDay()+6)%7));return s;}
-function chCurrent(){for(var d=1;d<=30;d++)if(!DB.ch.done[d])return d;return 31;}
 function remindDue(){
-  var r=LOC.rem;if(!r.on)return false;var now=new Date(),wd=now.getDay();
-  if(r.days.indexOf(wd)<0)return false;
+  var r=LOC.rem;if(!r.on)return false;var now=new Date();
+  if(r.days.indexOf(now.getDay())<0)return false;
   var t=r.time.split(':');if(now.getHours()*60+now.getMinutes()<(+t[0])*60+(+t[1]))return false;
-  return !doneDays()[ymd(now)];
+  return !doneDays()[today()];
 }
+var PLAN_EDIT=false;
 function renderHome(m){
-  var h='',dd=doneDays(),ws=weekStart(new Date()),cnt=0,i,today=ymd(new Date());
-  if(remindDue())h+='<div class="banner"><b>⏰ Đến giờ tập rồi!</b> Hôm nay bạn chưa tập. <button class="btn sm" id="bNow">Tập ngay</button></div>';
+  var h='',dd=doneDays(),ws=weekStart(new Date()),cnt=0,i,td=today();
+  if(remindDue())h+='<div class="note2">⏰ <b>Đến giờ tập rồi!</b> Hôm nay bạn chưa tập.</div>';
   var cells='',names=['T2','T3','T4','T5','T6','T7','CN'];
   for(i=0;i<7;i++){var d=new Date(ws);d.setDate(ws.getDate()+i);var k=ymd(d);if(dd[k])cnt++;
-    cells+='<div class="wd'+(dd[k]?' on':'')+(k===today?' td':'')+'"><span>'+names[i]+'</span><i>'+(dd[k]?'✓':d.getDate())+'</i></div>';}
-  h+='<div class="card"><div class="row" style="justify-content:space-between"><div><div class="name">Mục tiêu tuần</div><div class="sub">'+cnt+'/'+LOC.goal+' ngày'+(cnt>=LOC.goal?' · Đạt mục tiêu 🎉':'')+'</div></div><button class="btn ghost sm" id="gEdit">Sửa</button></div><div class="week">'+cells+'</div></div>';
+    cells+='<div class="wd'+(dd[k]?' on':'')+(k===td?' td':'')+'"><span>'+names[i]+'</span><i>'+(dd[k]?'✓':d.getDate())+'</i></div>';}
+  h+='<div class="card"><div class="hrow"><div><div class="name">Mục tiêu tuần</div><div class="sub">'+cnt+'/'+LOC.goal+' ngày'+(cnt>=LOC.goal?' · Đạt mục tiêu 🎉':'')+'</div></div><button class="lk" id="gEdit">Sửa</button></div><div class="week">'+cells+'</div></div>';
   var cur=chCurrent(),nd=0;for(i=1;i<=30;i++)if(DB.ch.done[i])nd++;
-  h+='<div class="hcard" id="chCard"><div class="hk">THỬ THÁCH 30 NGÀY</div><div class="ht">Toàn thân</div><div class="hs">'+(cur>30?'Đã hoàn thành cả 30 ngày!':'Còn '+(30-nd)+' ngày · '+nd+'/30 đã xong')+'</div><div class="bar w"><i style="width:'+(nd/30*100)+'%"></i></div><button class="btn wh">'+(cur>30?'Xem lại':(chDay(cur)?'▶ Bắt đầu Ngày '+cur:'Ngày '+cur+': nghỉ ngơi'))+'</button></div>';
+  h+='<div class="card tap" id="chCard"><div class="hrow"><div><div class="kick">THỬ THÁCH 30 NGÀY</div><div class="name">Toàn thân</div><div class="sub">'+(cur>30?'Đã hoàn thành cả 30 ngày!':nd+'/30 ngày đã xong · còn '+(30-nd)+' ngày')+'</div></div><span class="chev">›</span></div><div class="bar"><i style="width:'+(nd/30*100)+'%"></i></div><button class="primary" id="chGo">'+(cur>30?'Xem lại':(chDay(cur)?'▶ Bắt đầu Ngày '+cur:'Ngày '+cur+': nghỉ ngơi'))+'</button></div>';
+  var ps=plans();
+  h+='<div class="sech"><button class="sec tg" id="plHead">Giáo án ('+ps.length+')</button>'+(PLAN_EDIT?'<button class="lk" id="plNew">Tạo/Sửa</button>':'')+'</div>';
+  h+='<div class="card" id="plList"></div>';
+  var tips=(DB.tips.text||'').split('\n').map(function(s){return s.trim();}).filter(Boolean);
+  if(tips.length)h+='<div class="tipbox">'+tips.map(function(t){return '<div>• '+esc(t)+'</div>';}).join('')+'</div>';
   m.innerHTML=h;
-  if($('bNow'))$('bNow').onclick=function(){push({t:'ch'});};
   $('gEdit').onclick=editGoal;
-  $('chCard').onclick=function(){push({t:'ch'});};
-  PARTS.forEach(function(pt){
-    if(!PLAN_EX[pt.id])return;
-    var t=document.createElement('h2');t.textContent=pt.ic+' '+pt.name;m.appendChild(t);
-    LEVELS.forEach(function(lv,li){
-      var pg=PROGRAMS.filter(function(p){return p.id===pt.id+'-'+lv.id;})[0];
-      var main=exById(pg.items[1]?pg.items[1].ex:pg.items[0].ex);
-      var c=document.createElement('div');c.className='card row tap';
-      c.innerHTML='<svg class="thumb"></svg><div class="grow"><div class="name">'+pt.name+' – '+lv.name+'</div><div class="sub">'+pg.items.length+' bài · khoảng '+planMins(pg.items)+' phút</div><div class="lvl">'+'⚡'.repeat(li+1)+'<span>'+'⚡'.repeat(2-li)+'</span></div></div><span class="chev">›</span>';
-      c.onclick=function(){push({t:'prog',id:pg.id});};
-      m.appendChild(c);addPlayer(c,main,.8);
-    });
+  $('chCard').onclick=function(){openPage('Thử thách 30 ngày',renderCh);};
+  $('plHead').onclick=function(){PLAN_EDIT=!PLAN_EDIT;render();};
+  if($('plNew'))$('plNew').onclick=function(){openPage('Quản lý giáo án',renderPlanMgr);};
+  var L=$('plList');
+  if(!ps.length)L.innerHTML='<div class="empty">Chưa có giáo án. Bấm “Giáo án” rồi “Tạo/Sửa” để tạo.</div>';
+  ps.forEach(function(p){
+    var items=planItems(p),c=pdCount(p),first=items[0]?exById(items[0].ex):null;
+    var r=document.createElement('div');r.className='xr tap';
+    r.innerHTML='<svg class="thumb"></svg><div class="grow"><div class="name">'+esc(p.name)+'</div><div class="sub">'+items.length+' bài · khoảng '+(items.length?planMins(items):0)+' phút</div>'+(c?'<div class="amt'+(c===p.items.length?' ok':'')+'">Hôm nay: '+c+'/'+p.items.length+' bài'+(c===p.items.length?' ✓':'')+'</div>':'')+'</div>';
+    r.onclick=function(){openPage(function(){return p.name;},function(b){renderPlan(b,p);});};
+    L.appendChild(r);if(first)addPlayer(r,exById((items[1]||items[0]).ex));else toImg(r.querySelector('svg'),{id:'',name:''});
   });
-  var n=document.createElement('div');n.className='note';
-  n.textContent='Khởi động 3 – 5 phút trước khi tập. Đau nhói hoặc chóng mặt thì dừng lại. Ứng dụng chỉ hướng dẫn chung, không thay lời khuyên của bác sĩ.';
-  m.appendChild(n);
 }
 function editGoal(ev){
   if(ev)ev.stopPropagation();
   var m=document.createElement('div'),g=LOC.goal;m.className='modal';
-  m.innerHTML='<div class="box"><b style="font-size:18px">Mục tiêu mỗi tuần</b><p class="sub">Số ngày bạn muốn tập trong một tuần (Thứ 2 – Chủ nhật).</p><div class="inp" style="justify-content:center"><div class="st"><button id="g1">−</button><b id="gv">'+g+'</b><button id="g2">+</button></div></div><div class="two"><button class="btn ghost" id="gNo">Bỏ qua</button><button class="btn" id="gOk">Lưu</button></div></div>';
+  m.innerHTML='<div class="dlg"><h2>Mục tiêu mỗi tuần</h2><p class="sub">Số ngày bạn muốn tập trong một tuần (Thứ 2 – Chủ nhật).</p><div class="inp" style="justify-content:center"><div class="st"><button id="g1">−</button><b id="gv">'+g+'</b><button id="g2">+</button></div></div><div class="bt"><button id="gNo">Bỏ qua</button><button class="pr" id="gOk">Lưu</button></div></div>';
   document.body.appendChild(m);
   m.querySelector('#g1').onclick=function(){g=Math.max(1,g-1);m.querySelector('#gv').textContent=g;};
   m.querySelector('#g2').onclick=function(){g=Math.min(7,g+1);m.querySelector('#gv').textContent=g;};
@@ -727,90 +895,277 @@ function editGoal(ev){
   m.querySelector('#gOk').onclick=function(){LOC.goal=g;saveLoc();m.remove();render();};
 }
 
-/* ----- Trang giáo án ----- */
-function planCard(m,title,sub,items,meta){
-  var kc=0;items.forEach(function(it){kc+=exKcal(exById(it.ex),it.sets,it.n,curKg()||60);});
-  var c=document.createElement('div');c.className='hcard';
-  c.innerHTML='<div class="ht">'+title+'</div><div class="hs">'+sub+'</div><div class="stats"><div><b>'+items.length+'</b>bài</div><div><b>'+planMins(items)+'</b>phút</div><div><b>'+fmtNum(kc)+'</b>kcal</div></div><button class="btn wh" id="pGo">▶ Bắt đầu</button>';
-  m.appendChild(c);
-  $('pGo').onclick=function(){startRun(items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};}),title,meta);};
-  var h=document.createElement('h2');h.textContent='Danh sách bài tập';m.appendChild(h);
-  items.forEach(function(it){
-    var ex=exById(it.ex),c2=exRow(ex,it.sets+' hiệp · '+amount(ex,it.n),function(){push({t:'ex',id:ex.id});});
-    m.appendChild(c2);addPlayer(c2,ex);
+/* ----- Trang một giáo án: danh sách + Hoàn thành ----- */
+function planStats(items){var kc=0;items.forEach(function(it){kc+=exKcal(exById(it.ex),it.sets,it.n,curKg()||60);});
+  return '<div class="stats"><div><b>'+items.length+'</b>bài</div><div><b>'+(items.length?planMins(items):0)+'</b>phút</div><div><b>'+fmtNum(kc)+'</b>kcal</div></div>';}
+function renderPlan(b,p){
+  var items=planItems(p),s=pdState(p.id),c=pdCount(p);
+  var top=document.createElement('div');top.className='card';
+  top.innerHTML=planStats(items)+'<div class="sub" style="margin-top:10px">Hôm nay đã xong <b>'+c+'/'+p.items.length+'</b> bài'+(c&&c===p.items.length?' · đã ghi vào lịch sử ✓':'')+'. Nút Hoàn thành tự tắt khi sang ngày mới.</div>'+(items.length?'<button class="primary" id="pGo">▶ Bắt đầu tập</button>':'');
+  b.appendChild(top);
+  if($('pGo'))$('pGo').onclick=function(){startRun(p.items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};}),p.name,{src:'plan',key:p.id});};
+  var hd=document.createElement('div');hd.className='sech';hd.innerHTML='<div class="sec">Danh sách bài tập</div><div class="sub">Hoàn thành</div>';b.appendChild(hd);
+  var L=document.createElement('div');L.className='card';b.appendChild(L);
+  if(!p.items.length)L.innerHTML='<div class="empty">Giáo án chưa có bài nào.</div>';
+  p.items.forEach(function(it,i){
+    var ex=exById(it.ex);if(!ex)return;
+    var r=exRow(ex,it.sets+' hiệp · '+amount(ex,it.n));r.classList.add('tap');
+    var sw=document.createElement('label');sw.className='sw';sw.innerHTML='<input type="checkbox"'+(s.done[i]?' checked':'')+'><span></span>';
+    sw.onclick=function(e){e.stopPropagation();};
+    sw.querySelector('input').onchange=function(){setPlanDone(p,i,this.checked);renderPage();if(this.checked&&pdCount(p)===p.items.length)toast('Đã xong cả giáo án, đã ghi vào lịch sử');};
+    r.appendChild(sw);
+    r.onclick=function(){openPage(ex.name,function(bb){renderDetail(bb,ex);});};
+    L.appendChild(r);addPlayer(r,ex);
   });
-  var n=document.createElement('div');n.className='note';n.textContent='Số kcal là ước tính theo cân nặng '+(curKg()?fmtNum(curKg(),1)+' kg':'mặc định 60 kg (ghi cân nặng ở tab Báo cáo để chính xác hơn)')+'.';m.appendChild(n);
-}
-function renderProg(m,id){
-  var pg=PROGRAMS.filter(function(p){return p.id===id;})[0];
-  backBtn(m,'Huấn luyện');
-  var pt=PARTS.filter(function(p){return p.id===pg.part;})[0],lv=LEVELS.filter(function(l){return l.id===pg.level;})[0];
-  planCard(m,pt.name+' – '+lv.name,'Giáo án '+lv.name.toLowerCase()+' cho vùng '+pt.name.toLowerCase(),pg.items,{src:'prog',key:pg.id});
+  var n=document.createElement('div');n.className='note';n.textContent='Số kcal là ước tính theo cân nặng '+(curKg()?fmtNum(curKg(),1)+' kg':'mặc định 60 kg (ghi cân nặng ở tab Báo cáo để chính xác hơn)')+'.';b.appendChild(n);
 }
 
-/* ----- Trang thử thách 30 ngày ----- */
+/* ----- Quản lý giáo án: tạo, sửa, đổi thứ tự ----- */
+function moveIn(arr,i,d){var j=i+d;if(j<0||j>=arr.length)return false;var t=arr[i];arr[i]=arr[j];arr[j]=t;return true;}
+function renderPlanMgr(b){
+  var add=document.createElement('button');add.className='primary';add.style.marginTop='0';add.textContent='＋ Tạo giáo án mới';
+  add.onclick=function(){openPlanEditor(null);};b.appendChild(add);
+  var L=document.createElement('div');L.className='card';L.style.marginTop='12px';b.appendChild(L);
+  var ps=plans();
+  if(!ps.length)L.innerHTML='<div class="empty">Chưa có giáo án.</div>';
+  ps.forEach(function(p,i){
+    var r=document.createElement('div');r.className='mrow';
+    r.innerHTML='<div class="grow"><div class="name">'+esc(p.name)+'</div><div class="sub">'+planItems(p).length+' bài</div></div><button class="mv" data-d="-1"'+(i?'':' disabled')+'>↑</button><button class="mv" data-d="1"'+(i<ps.length-1?'':' disabled')+'>↓</button><button class="lk">Sửa</button>';
+    var mv=r.querySelectorAll('.mv');for(var k=0;k<mv.length;k++)mv[k].onclick=function(){var live=plans(),a=DB.plans.indexOf(live[i]),bI=DB.plans.indexOf(live[i+(+this.dataset.d)]);var t=DB.plans[a];DB.plans[a]=DB.plans[bI];DB.plans[bI]=t;saveDB();renderPage();};
+    r.querySelector('.lk').onclick=function(){openPlanEditor(p);};
+    L.appendChild(r);
+  });
+}
+function openPlanEditor(p){
+  var draft={name:p?p.name:'',items:p?p.items.map(function(i){return {ex:i.ex,sets:i.sets,n:i.n};}):[]};
+  openPage(p?'Sửa giáo án':'Tạo giáo án',function(b){
+    var h='<div class="card"><label class="lb">Tên giáo án</label><input class="nt" id="pnName" value="'+esc(draft.name)+'" placeholder="Ví dụ: Sáng thứ 2"></div>';
+    h+='<div class="sech"><div class="sec">Bài tập ('+draft.items.length+')</div><button class="lk" id="pnAdd">＋ Thêm bài</button></div><div class="card" id="pnList"></div>';
+    if(p)h+='<button class="primary chi" id="pnDel">Xóa giáo án</button>';
+    b.innerHTML=h;
+    $('pnName').oninput=function(){draft.name=this.value;};
+    $('pnAdd').onclick=function(){openPicker(draft.items.map(function(i){return i.ex;}),function(ids){
+      var have={};draft.items.forEach(function(i){have[i.ex]=1;});
+      draft.items=draft.items.filter(function(i){return ids.indexOf(i.ex)>=0;});
+      ids.forEach(function(id){if(!have[id]){var ex=exById(id),c=cfgOf(ex);draft.items.push({ex:id,sets:c.sets,n:c.n});}});});};
+    var L=$('pnList');
+    if(!draft.items.length)L.innerHTML='<div class="empty">Chưa có bài. Bấm “＋ Thêm bài”.</div>';
+    draft.items.forEach(function(it,i){
+      var ex=exById(it.ex);if(!ex)return;var step=ex.mode==='time'?5:1;
+      var r=document.createElement('div');r.className='prow';
+      r.innerHTML='<div class="hrow"><div class="name">'+(i+1)+'. '+esc(ex.name)+'</div><div><button class="mv" data-a="up"'+(i?'':' disabled')+'>↑</button><button class="mv" data-a="dn"'+(i<draft.items.length-1?'':' disabled')+'>↓</button><button class="mv x" data-a="rm">✕</button></div></div>'+
+        '<div class="hrow sm"><span class="sub">Hiệp</span><div class="st"><button data-a="s-">−</button><b>'+it.sets+'</b><button data-a="s+">+</button></div><span class="sub">'+(ex.mode==='time'?'Giây':'Lần')+'</span><div class="st"><button data-a="n-">−</button><b>'+it.n+'</b><button data-a="n+">+</button></div></div>';
+      var bs=r.querySelectorAll('button');for(var k=0;k<bs.length;k++)bs[k].onclick=function(){var a=this.dataset.a;
+        if(a==='up')moveIn(draft.items,i,-1);else if(a==='dn')moveIn(draft.items,i,1);else if(a==='rm')draft.items.splice(i,1);
+        else if(a==='s-')it.sets=Math.max(1,it.sets-1);else if(a==='s+')it.sets=Math.min(10,it.sets+1);
+        else if(a==='n-')it.n=Math.max(step,it.n-step);else if(a==='n+')it.n=Math.min(600,it.n+step);renderPage();};
+      L.appendChild(r);
+    });
+    if($('pnDel'))$('pnDel').onclick=function(){ask('Xóa giáo án?','“'+esc(p.name)+'” sẽ bị xóa. Lịch sử tập không bị ảnh hưởng.','Xóa',true,function(){p.deleted=true;p.updated=Date.now();saveDB();popPage();});};
+  },{foot:'Lưu lại & Thoát',onFoot:function(){
+    var name=draft.name.trim();if(!name){toast('Nhập tên giáo án');return false;}
+    var dup=plans().some(function(x){return x!==p&&noAcc(x.name)===noAcc(name);});if(dup){toast('Đã có giáo án cùng tên');return false;}
+    if(p){p.name=name;p.items=draft.items;p.updated=Date.now();delete DB.pdone[p.id];}
+    else DB.plans.push({id:'p'+uid(),name:name,items:draft.items,updated:Date.now()});
+    saveDB();toast('Đã lưu giáo án');
+  }});
+}
+function openPicker(sel,cb){
+  var chosen=sel.slice(),q='';
+  openPage('Chọn bài tập',function(b){
+    var h='<input class="nt" id="pkQ" placeholder="🔍 Tìm bài tập" value="'+esc(q)+'" style="width:100%;margin-bottom:10px"><div class="sub" style="margin:0 2px 8px">Đã chọn '+chosen.length+' bài</div>';
+    b.innerHTML=h;
+    $('pkQ').oninput=function(){q=this.value;var v=noAcc(q),rows=b.querySelectorAll('.pk');for(var i=0;i<rows.length;i++)rows[i].style.display=noAcc(rows[i].dataset.n).indexOf(v)>=0?'':'none';};
+    libGroups().forEach(function(g){
+      if(!g.list.length)return;
+      var t=document.createElement('div');t.className='sec';t.textContent=g.label;b.appendChild(t);
+      var c=document.createElement('div');c.className='card';b.appendChild(c);
+      g.list.forEach(function(ex){
+        var r=document.createElement('label');r.className='pk';r.dataset.n=ex.name;
+        r.innerHTML='<input type="checkbox"'+(chosen.indexOf(ex.id)>=0?' checked':'')+'><span class="grow">'+esc(ex.name)+'</span><span class="sub">'+LV[ex.level]+'</span>';
+        r.querySelector('input').onchange=function(){var k=chosen.indexOf(ex.id);if(this.checked&&k<0)chosen.push(ex.id);if(!this.checked&&k>=0)chosen.splice(k,1);b.querySelector('.sub').textContent='Đã chọn '+chosen.length+' bài';
+          var all=b.querySelectorAll('.pk');for(var i=0;i<all.length;i++){if(all[i]!==r&&all[i].dataset.n===ex.name)all[i].querySelector('input').checked=this.checked;}};
+        c.appendChild(r);
+      });
+    });
+  },{foot:'Xong',onFoot:function(){cb(chosen);}});
+}
+
+/* ----- Thử thách 30 ngày ----- */
 var CH_SEL=0;
-function renderCh(m){
-  backBtn(m,'Huấn luyện');
+function renderCh(b){
   var cur=chCurrent(),sel=CH_SEL||Math.min(cur,30),i,nd=0;for(i=1;i<=30;i++)if(DB.ch.done[i])nd++;
-  var h='<div class="card"><div class="name">Thử thách 30 ngày toàn thân</div><div class="sub">'+nd+'/30 ngày đã xong · cứ 3 ngày tập có 1 ngày nghỉ</div><div class="bar"><i style="width:'+(nd/30*100)+'%"></i></div><div class="cgrid">';
-  for(i=1;i<=30;i++){
-    var done=DB.ch.done[i],rest=!chDay(i),lock=i>cur;
-    h+='<button class="cd'+(done?' done':'')+(i===cur?' cur':'')+(lock?' lock':'')+(i===sel?' sel':'')+'" data-d="'+i+'"'+(lock?' disabled':'')+'>'+(done?'✓':(rest?'☕':i))+'<small>'+(rest?'Nghỉ':'Ngày '+i)+'</small></button>';
-  }
+  var h='<div class="card"><div class="sub">'+nd+'/30 ngày đã xong · cứ 3 ngày tập có 1 ngày nghỉ</div><div class="bar"><i style="width:'+(nd/30*100)+'%"></i></div><div class="cgrid">';
+  for(i=1;i<=30;i++){var done=DB.ch.done[i],rest=!chDay(i),lock=i>cur;
+    h+='<button class="cd'+(done?' done':'')+(i===cur?' cur':'')+(lock?' lock':'')+(i===sel?' sel':'')+'" data-d="'+i+'"'+(lock?' disabled':'')+'>'+(done?'✓':(rest?'☕':i))+'<small>'+(rest?'Nghỉ':'Ngày '+i)+'</small></button>';}
   h+='</div></div>';
-  var wrap=document.createElement('div');wrap.innerHTML=h;m.appendChild(wrap);
-  var bs=wrap.querySelectorAll('.cd');for(i=0;i<bs.length;i++)bs[i].onclick=function(){CH_SEL=+this.dataset.d;render();};
-  if(cur>30&&!CH_SEL){var e=document.createElement('div');e.className='card';e.innerHTML='<div class="name">🎉 Bạn đã hoàn thành thử thách!</div><div class="sub">Có thể bắt đầu lại từ đầu, lịch sử tập vẫn giữ nguyên.</div><div style="margin-top:10px"><button class="btn ghost" id="chReset">Làm lại thử thách</button></div>';m.appendChild(e);
-    $('chReset').onclick=function(){ask('Làm lại thử thách?','Xóa đánh dấu 30 ngày để bắt đầu lại từ Ngày 1. Lịch sử tập không bị xóa.','Làm lại',true,function(){DB.ch={done:{},updated:Date.now()};saveDB();CH_SEL=0;render();});};return;}
+  var w=document.createElement('div');w.innerHTML=h;b.appendChild(w);
+  var bs=w.querySelectorAll('.cd');for(i=0;i<bs.length;i++)bs[i].onclick=function(){CH_SEL=+this.dataset.d;renderPage();};
+  if(cur>30&&!CH_SEL){var e=document.createElement('div');e.className='card';e.innerHTML='<div class="name">🎉 Bạn đã hoàn thành thử thách!</div><div class="sub">Có thể bắt đầu lại, lịch sử tập vẫn giữ nguyên.</div><button class="primary" id="chReset">Làm lại thử thách</button>';b.appendChild(e);
+    $('chReset').onclick=function(){ask('Làm lại thử thách?','Xóa đánh dấu 30 ngày để bắt đầu lại từ Ngày 1. Lịch sử tập không bị xóa.','Làm lại',true,function(){DB.ch={done:{},updated:Date.now()};saveDB();CH_SEL=0;renderPage();});};return;}
   var items=chDay(sel);
-  if(!items){
-    var r=document.createElement('div');r.className='card';
-    r.innerHTML='<div class="name">Ngày '+sel+': nghỉ ngơi ☕</div><div class="sub">Cơ bắp cần nghỉ để phục hồi. Có thể đi bộ nhẹ hoặc giãn cơ.</div>'+(DB.ch.done[sel]?'<div class="sub ok" style="margin-top:8px">✓ Đã hoàn thành</div>':'<div style="margin-top:10px"><button class="btn" id="restOk">✓ Hoàn thành ngày nghỉ</button></div>');
-    m.appendChild(r);
-    if($('restOk'))$('restOk').onclick=function(){DB.ch.done[sel]=ymd(new Date());DB.ch.updated=Date.now();saveDB();CH_SEL=0;render();toast('Đã xong Ngày '+sel);};
-    return;
-  }
-  planCard(m,'Ngày '+sel,DB.ch.done[sel]?'Đã hoàn thành ngày '+vnDate(DB.ch.done[sel])+' · có thể tập lại':'Thử thách 30 ngày toàn thân',items,{src:'ch',key:sel});
+  if(!items){var r=document.createElement('div');r.className='card';
+    r.innerHTML='<div class="name">Ngày '+sel+': nghỉ ngơi ☕</div><div class="sub">Cơ bắp cần nghỉ để phục hồi. Có thể đi bộ nhẹ hoặc giãn cơ.</div>'+(DB.ch.done[sel]?'<div class="ok" style="margin:10px 0 0">✓ Đã hoàn thành</div>':'<button class="primary" id="restOk">✓ Hoàn thành ngày nghỉ</button>');
+    b.appendChild(r);
+    if($('restOk'))$('restOk').onclick=function(){DB.ch.done[sel]=today();DB.ch.updated=Date.now();saveDB();CH_SEL=0;renderPage();toast('Đã xong Ngày '+sel);};return;}
+  var c=document.createElement('div');c.className='card';
+  c.innerHTML='<div class="name">Ngày '+sel+'</div><div class="sub">'+(DB.ch.done[sel]?'Đã hoàn thành ngày '+vnDate(DB.ch.done[sel])+' · có thể tập lại':'Thử thách 30 ngày toàn thân')+'</div>'+planStats(items)+'<button class="primary" id="chGo2">▶ Bắt đầu</button>';
+  b.appendChild(c);
+  $('chGo2').onclick=function(){startRun(items,'Ngày '+sel,{src:'ch',key:sel});};
+  var L=document.createElement('div');L.className='card';b.appendChild(L);
+  items.forEach(function(it){var ex=exById(it.ex),r=exRow(ex,it.sets+' hiệp · '+amount(ex,it.n),function(){openPage(ex.name,function(bb){renderDetail(bb,ex);});});L.appendChild(r);addPlayer(r,ex);});
 }
 
-/* ----- Thư viện bài tập ----- */
-function renderList(m){
-  var t=document.createElement('div');t.className='note';t.style.margin='0 2px 4px';t.textContent=EX.length+' bài tập tại nhà. Một số bài cần ghế chắc chắn, bức tường hoặc xà đơn.';m.appendChild(t);
-  PARTS.forEach(function(pt){
-    var list=EX.filter(function(ex){return ex.parts[0]===pt.id;});if(!list.length)return;
-    var h=document.createElement('h2');h.textContent=pt.ic+' '+pt.name+' ('+list.length+')';m.appendChild(h);
-    list.forEach(function(ex){
-      var c=cfgOf(ex),card=exRow(ex,LV[ex.level]+' · '+c.sets+' × '+c.n+' '+unit(ex),function(){push({t:'ex',id:ex.id});});
-      m.appendChild(card);addPlayer(card,ex);
+/* ===== Fox-calisthenics 3: tab Bài tập (Quản lý bài tập) ===== */
+var LIB_EDIT=false;
+// Danh sách bài theo nhóm, có thứ tự riêng (DB.gorder)
+function libGroups(){
+  var vis=exVisible(),out=[];
+  groups().forEach(function(g){
+    var list=vis.filter(function(ex){return ex.parts.indexOf(g.id)>=0;}),ord=DB.gorder[g.id]||[];
+    list.sort(function(a,b){var ia=ord.indexOf(a.id),ib=ord.indexOf(b.id);if(ia<0)ia=999+EX.indexOf(a);if(ib<0)ib=999+EX.indexOf(b);return ia-ib;});
+    out.push({g:g,label:(g.ic?g.ic+' ':'')+g.name+' ('+list.length+')',list:list});
+  });
+  var none=vis.filter(function(ex){return !ex.parts.some(function(p){var g=groupById(p);return g&&!g.deleted;});});
+  if(none.length)out.push({g:null,label:'Chưa phân nhóm ('+none.length+')',list:none});
+  return out;
+}
+function renderLib(m){
+  var total=exVisible().length;
+  var top=document.createElement('div');top.className='sech';
+  top.innerHTML='<div class="sec" style="margin-top:2px">Quản lý bài tập ('+total+')</div><button class="lk" id="lbEdit">'+(LIB_EDIT?'Xong':'Thêm/Sửa')+'</button>';
+  m.appendChild(top);
+  $('lbEdit').onclick=function(){LIB_EDIT=!LIB_EDIT;render();};
+  if(LIB_EDIT){
+    var bar=document.createElement('div');bar.className='two2';
+    bar.innerHTML='<button class="primary sm" id="exNew">＋ Thêm bài tập</button><button class="primary sm ghost" id="grNew">＋ Thêm nhóm cơ</button>';
+    m.appendChild(bar);
+    $('exNew').onclick=function(){openExEditor(null);};
+    $('grNew').onclick=function(){editGroup(null);};
+    var tip=document.createElement('div');tip.className='note';tip.textContent='Dùng ↑ ↓ để đổi thứ tự nhóm cơ và bài tập; bấm ✏️ để sửa.';m.appendChild(tip);
+  }
+  var gs=libGroups(),live=groups();
+  gs.forEach(function(G,gi){
+    var hd=document.createElement('div');hd.className='sech';
+    var idx=G.g?live.indexOf(G.g):-1;
+    hd.innerHTML='<div class="sec">'+esc(G.label)+'</div>'+(LIB_EDIT&&G.g?'<div><button class="mv" data-d="-1"'+(idx>0?'':' disabled')+'>↑</button><button class="mv" data-d="1"'+(idx<live.length-1?'':' disabled')+'>↓</button><button class="mv" data-e="1">✏️</button></div>':'');
+    m.appendChild(hd);
+    if(LIB_EDIT&&G.g){
+      var mv=hd.querySelectorAll('.mv[data-d]');for(var k=0;k<mv.length;k++)mv[k].onclick=function(){var a=DB.groups.indexOf(G.g),b=DB.groups.indexOf(live[idx+(+this.dataset.d)]);var t=DB.groups[a];DB.groups[a]=DB.groups[b];DB.groups[b]=t;G.g.updated=Date.now();DB.gorderU=Date.now();saveDB();render();};
+      hd.querySelector('[data-e]').onclick=function(){editGroup(G.g);};
+    }
+    var c=document.createElement('div');c.className='card'+(LIB_EDIT?' editing':'');m.appendChild(c);
+    if(!G.list.length)c.innerHTML='<div class="empty">Chưa có bài trong nhóm này.</div>';
+    G.list.forEach(function(ex,i){
+      var cf=cfgOf(ex),r=exRow(ex,LV[ex.level]+' · '+cf.sets+' × '+cf.n+' '+unit(ex),LIB_EDIT?null:function(){openPage(ex.name,function(b){renderDetail(b,ex);});});
+      if(LIB_EDIT){
+        var ctl=document.createElement('div');ctl.className='ctl';
+        ctl.innerHTML=(G.g?'<button class="mv" data-d="-1"'+(i?'':' disabled')+'>↑</button><button class="mv" data-d="1"'+(i<G.list.length-1?'':' disabled')+'>↓</button>':'')+'<button class="mv">✏️</button>';
+        var bs=ctl.querySelectorAll('.mv');
+        for(var k=0;k<bs.length;k++)bs[k].onclick=function(){
+          if(this.dataset.d){var ids=G.list.map(function(x){return x.id;});moveIn(ids,i,+this.dataset.d);DB.gorder[G.g.id]=ids;DB.gorderU=Date.now();saveDB();render();}
+          else openExEditor(ex);};
+        r.appendChild(ctl);
+      }
+      c.appendChild(r);addPlayer(r,ex);
     });
   });
 }
 
+/* ----- Nhóm cơ: thêm / đổi tên / xóa ----- */
+var GIC=['🔥','💪','🦾','🦵','🏋️','⚡','🧘','🤸','🏃','❤️','🫁','🍑','🧍','⭐'];
+function editGroup(g){
+  var m=document.createElement('div'),ic=g?g.ic:'⭐';m.className='modal';
+  m.innerHTML='<div class="dlg"><h2>'+(g?'Sửa nhóm cơ':'Thêm nhóm cơ')+'</h2><label class="lb">Tên nhóm</label><input class="nt" id="gnN" value="'+esc(g?g.name:'')+'" placeholder="Ví dụ: Giãn cơ" style="width:100%"><label class="lb" style="margin-top:10px">Biểu tượng</label><div class="icg">'+GIC.map(function(x){return '<button data-i="'+x+'"'+(x===ic?' class="on"':'')+'>'+x+'</button>';}).join('')+'</div>'+
+    '<div class="bt"><button id="gnNo">Bỏ qua</button><button class="pr" id="gnOk">Lưu</button></div>'+(g?'<button class="primary chi" id="gnDel" style="margin-top:10px">Xóa nhóm</button>':'')+'</div>';
+  document.body.appendChild(m);
+  var ib=m.querySelectorAll('.icg button');for(var i=0;i<ib.length;i++)ib[i].onclick=function(){ic=this.dataset.i;for(var j=0;j<ib.length;j++)ib[j].className=ib[j]===this?'on':'';};
+  m.querySelector('#gnNo').onclick=function(){m.remove();};
+  m.querySelector('#gnOk').onclick=function(){
+    var n=m.querySelector('#gnN').value.trim();if(!n){toast('Nhập tên nhóm');return;}
+    if(groups().some(function(x){return x!==g&&noAcc(x.name)===noAcc(n);})){toast('Đã có nhóm cùng tên');return;}
+    if(g){g.name=n;g.ic=ic;g.updated=Date.now();}else DB.groups.push({id:'g'+uid(),name:n,ic:ic,updated:Date.now()});
+    saveDB();syncEx();m.remove();render();};
+  if(g)m.querySelector('#gnDel').onclick=function(){
+    var cnt=exVisible().filter(function(ex){return ex.parts.indexOf(g.id)>=0;}).length;
+    m.remove();ask('Xóa nhóm “'+esc(g.name)+'”?','Nhóm có '+cnt+' bài. Bài tập không bị xóa; bài không còn nhóm nào sẽ nằm ở mục “Chưa phân nhóm”.','Xóa nhóm',true,function(){g.deleted=true;g.updated=Date.now();saveDB();syncEx();render();});};
+}
+
+/* ----- Thêm / sửa bài tập ----- */
+function openExEditor(ex){
+  var isB=ex&&ex.builtin;
+  var d={name:ex?ex.name:'',parts:ex?ex.parts.slice():[],mode:ex?ex.mode:'reps',sets:ex?ex.sets:3,reps:ex?ex.reps:10,level:ex?ex.level:1,desc:ex?(ex.desc||''):'',img:ex?MEDIA['ex:'+ex.id]||'':'',imgCh:false};
+  openPage(ex?'Sửa bài tập':'Thêm bài tập',function(b){
+    var gs=groups();
+    var h='<div class="card"><label class="lb">Tên bài tập</label><input class="nt" id="eN" value="'+esc(d.name)+'" placeholder="Ví dụ: Plank nghiêng" style="width:100%">';
+    h+='<label class="lb" style="margin-top:12px">Nhóm cơ (chọn được nhiều nhóm)</label><div class="chips">'+gs.map(function(g){return '<button data-g="'+g.id+'" class="'+(d.parts.indexOf(g.id)>=0?'on':'')+'">'+(g.ic||'')+' '+esc(g.name)+'</button>';}).join('')+'</div>';
+    h+='<label class="lb" style="margin-top:12px">Tính theo</label><div class="seg"><button data-m="reps" class="'+(d.mode==='reps'?'on':'')+'">Số lần</button><button data-m="time" class="'+(d.mode==='time'?'on':'')+'">Số giây</button></div>';
+    h+='<div class="inp"><span>Số hiệp</span><div class="st"><button data-a="s-">−</button><b>'+d.sets+'</b><button data-a="s+">+</button></div></div>';
+    h+='<div class="inp"><span>'+(d.mode==='time'?'Số giây mỗi hiệp':'Số lần mỗi hiệp')+'</span><div class="st"><button data-a="n-">−</button><b>'+d.reps+'</b><button data-a="n+">+</button></div></div>';
+    h+='<label class="lb" style="margin-top:6px">Mức độ</label><div class="seg">'+[1,2,3].map(function(l){return '<button data-l="'+l+'" class="'+(d.level===l?'on':'')+'">'+LV[l]+'</button>';}).join('')+'</div></div>';
+    h+='<div class="card"><label class="lb">Hình ảnh hoặc ảnh GIF</label><div class="imgbox">'+(d.img?'<img src="'+d.img+'">':(ex&&ex.frames?'<svg id="ePrev"></svg>':'<div class="noimg">Chưa có hình</div>'))+'</div>';
+    h+='<div class="two2"><button class="primary sm" id="eImg">'+(d.img?'Đổi hình':'＋ Chọn ảnh/GIF')+'</button>'+(d.img?'<button class="primary sm ghost" id="eImgX">'+(isB?'Dùng lại hình động':'Bỏ hình')+'</button>':'')+'</div><input type="file" id="eFile" accept="image/*" style="display:none">';
+    h+='<div class="note">Ảnh thường được thu nhỏ còn cạnh dài 720 px; GIF giữ nguyên chuyển động, tối đa 4 MB.'+(isB?' Bài có sẵn sẽ dùng hình bạn chọn thay cho hình động.':'')+'</div></div>';
+    h+='<div class="card"><label class="lb">Mô tả cách tập (không bắt buộc)</label><textarea class="nt" id="eD" rows="4" style="width:100%" placeholder="Ví dụ: Nằm nghiêng, chống khuỷu tay...">'+esc(d.desc)+'</textarea>'+(isB&&!d.desc?'<div class="note">Để trống thì giữ các bước hướng dẫn có sẵn.</div>':'')+'</div>';
+    if(ex)h+='<button class="primary chi" id="eDel">'+(isB?'Ẩn bài tập này':'Xóa bài tập')+'</button>'+(isB&&DB.exo[ex.id]?'<button class="primary ghost" id="eRst">Khôi phục mặc định</button>':'');
+    b.innerHTML=h;
+    if($('ePrev'))_drawStatic($('ePrev'),ex,Math.min(1,ex.frames.length-1));
+    $('eN').oninput=function(){d.name=this.value;};$('eD').oninput=function(){d.desc=this.value;};
+    var cs=b.querySelectorAll('.chips button');for(var i=0;i<cs.length;i++)cs[i].onclick=function(){var g=this.dataset.g,k=d.parts.indexOf(g);if(k>=0)d.parts.splice(k,1);else d.parts.push(g);this.className=k>=0?'':'on';};
+    var ms=b.querySelectorAll('[data-m]');for(i=0;i<ms.length;i++)ms[i].onclick=function(){if(d.mode!==this.dataset.m){d.mode=this.dataset.m;d.reps=d.mode==='time'?30:10;renderPage();}};
+    var ls=b.querySelectorAll('[data-l]');for(i=0;i<ls.length;i++)ls[i].onclick=function(){d.level=+this.dataset.l;renderPage();};
+    var as=b.querySelectorAll('[data-a]');for(i=0;i<as.length;i++)as[i].onclick=function(){var a=this.dataset.a,st=d.mode==='time'?5:1;
+      if(a==='s-')d.sets=Math.max(1,d.sets-1);if(a==='s+')d.sets=Math.min(10,d.sets+1);if(a==='n-')d.reps=Math.max(st,d.reps-st);if(a==='n+')d.reps=Math.min(600,d.reps+st);renderPage();};
+    $('eImg').onclick=function(){$('eFile').click();};
+    $('eFile').onchange=function(){readImage(this.files[0],function(u){d.img=u;d.imgCh=true;renderPage();});};
+    if($('eImgX'))$('eImgX').onclick=function(){d.img='';d.imgCh=true;renderPage();};
+    if($('eDel'))$('eDel').onclick=function(){
+      var used=plans().filter(function(p){return p.items.some(function(i){return i.ex===ex.id;});}).length;
+      ask(isB?'Ẩn bài tập?':'Xóa bài tập?','“'+esc(ex.name)+'”'+(used?' đang có trong '+used+' giáo án và sẽ bị bỏ khỏi các giáo án đó.':'.')+' Lịch sử tập không bị ảnh hưởng.',isB?'Ẩn':'Xóa',true,function(){
+        if(isB){DB.exo[ex.id]=Object.assign(DB.exo[ex.id]||{},{hidden:true,updated:Date.now()});}
+        else{var c=DB.cex.filter(function(x){return x.id===ex.id;})[0];c.deleted=true;c.updated=Date.now();}
+        plans().forEach(function(p){var n=p.items.length;p.items=p.items.filter(function(i){return i.ex!==ex.id;});if(p.items.length!==n){p.updated=Date.now();delete DB.pdone[p.id];}});
+        saveDB();syncEx();popPage();toast(isB?'Đã ẩn bài tập':'Đã xóa bài tập');});};
+    if($('eRst'))$('eRst').onclick=function(){ask('Khôi phục mặc định?','Tên, nhóm cơ, số hiệp, số lần, mức độ và mô tả của “'+esc(ex.name)+'” trở về như ban đầu; hình bạn thêm cũng bị bỏ.','Khôi phục',false,function(){
+        delete DB.exo[ex.id];DB.exoReset=DB.exoReset||{};DB.exoReset[ex.id]=Date.now();mediaPut('ex:'+ex.id,null);saveDB();syncEx();popPage();toast('Đã khôi phục');});};
+  },{foot:'Lưu lại & Thoát',onFoot:function(){
+    var name=d.name.trim();if(!name){toast('Nhập tên bài tập');return false;}
+    if(!d.parts.length){toast('Chọn ít nhất một nhóm cơ');return false;}
+    if(exVisible().some(function(x){return x!==ex&&noAcc(x.name)===noAcc(name);})){toast('Đã có bài tập cùng tên');return false;}
+    var rec={name:name,parts:d.parts.slice(),mode:d.mode,sets:d.sets,reps:d.reps,level:d.level,desc:d.desc.trim(),updated:Date.now()},id;
+    if(isB){
+      var df=DEF[ex.id];rec.group=(df.parts.join()===d.parts.join())?df.group:groupNames(d.parts);
+      if(!rec.desc)delete rec.desc;
+      DB.exo[ex.id]=rec;id=ex.id;
+    }else if(ex){var c=DB.cex.filter(function(x){return x.id===ex.id;})[0];for(var k in rec)c[k]=rec[k];id=ex.id;}
+    else{id='u'+uid();rec.id=id;DB.cex.push(rec);}
+    if(d.imgCh){mediaPut('ex:'+id,d.img||null);DB.media=DB.media||{};DB.media[id]=Date.now();}
+    if(!saveDB())return false;
+    delete LOC.cfg[id];saveLoc();syncEx();toast(ex?'Đã lưu thay đổi':'Đã thêm bài tập');
+  }});
+}
+
 /* ----- Chi tiết một bài ----- */
 function stepAt(ex,idx){var best=0,i;for(i=0;i<ex.steps.length;i++)if(ex.steps[i].f<=idx)best=i;return best;}
-function renderDetail(m,ex){
-  var c=cfgOf(ex);
-  backBtn(m,STACK.length>1?'Quay lại':(TAB==='lib'?'Thư viện':'Huấn luyện'));
-  var w=document.createElement('div');m.appendChild(w);
-  var h='<div class="hero"><svg id="hero"></svg><div class="cap" id="cap"></div></div>';
-  h+='<div class="card"><div class="name">'+ex.name+'</div><div class="sub">'+ex.group+' · '+LV[ex.level]+'</div>';
+function renderDetail(b,ex){
+  var c=cfgOf(ex),img=MEDIA['ex:'+ex.id]||!ex.frames;
+  var h='<div class="hero"><svg id="hero"></svg>'+(img?'':'<div class="cap" id="cap"></div>')+'</div>';
+  h+='<div class="card"><div class="name">'+esc(ex.name)+'</div><div class="sub">'+esc(ex.group||'')+' · '+LV[ex.level]+'</div>';
   h+='<div class="inp"><span>Số hiệp</span><div class="st"><button id="sm">−</button><b id="sv">'+c.sets+'</b><button id="sp">+</button></div></div>';
   h+='<div class="inp"><span>'+(ex.mode==='time'?'Số giây mỗi hiệp':'Số lần mỗi hiệp')+'</span><div class="st"><button id="nm">−</button><b id="nv">'+c.n+'</b><button id="np">+</button></div></div>';
-  h+='<button class="btn" id="go">▶ Bắt đầu tập</button></div>';
-  h+='<h2>Các bước thực hiện</h2><div class="steps" id="steps"></div>';
-  h+='<div class="tip"><b>Lưu ý:</b> '+ex.tips+'</div>';
-  w.innerHTML=h;
+  h+='<button class="primary" id="go">▶ Bắt đầu tập</button></div>';
+  if(img||ex.desc)h+='<div class="sec">Cách tập</div><div class="card"><div style="white-space:pre-wrap">'+esc(ex.steps[0].t)+'</div></div>';
+  else h+='<div class="sec">Các bước thực hiện</div><div class="steps" id="steps"></div>';
+  h+='<div class="tipbox"><b>Lưu ý:</b> '+esc(ex.tips)+'</div>';
+  b.innerHTML=h;
   var stepEls=[];
-  ex.steps.forEach(function(s,i){
+  if($('steps'))ex.steps.forEach(function(s,i){
     var d=document.createElement('div');d.className='step';
-    d.innerHTML='<svg></svg><b>BƯỚC '+(i+1)+'</b><span>'+s.t+'</span>';
-    $('steps').appendChild(d);stepEls.push(d);
-    drawStatic(d.querySelector('svg'),ex,s.f);
+    d.innerHTML='<svg></svg><b>BƯỚC '+(i+1)+'</b><span>'+esc(s.t)+'</span>';
+    $('steps').appendChild(d);stepEls.push(d);drawStatic(d.querySelector('svg'),ex,s.f);
   });
   createPlayer($('hero'),ex,function(idx){
-    var si=stepAt(ex,idx),j;
-    $('cap').textContent='Bước '+(si+1)+': '+ex.steps[si].t;
+    var si=stepAt(ex,idx),j;if($('cap'))$('cap').textContent='Bước '+(si+1)+': '+ex.steps[si].t;
     for(j=0;j<stepEls.length;j++)stepEls[j].className='step'+(j===si?' on':'');
   },1);
   function upd(){LOC.cfg[ex.id]={sets:c.sets,n:c.n};saveLoc();$('sv').textContent=c.sets;$('nv').textContent=c.n;}
@@ -818,9 +1173,202 @@ function renderDetail(m,ex){
   $('sm').onclick=function(){c.sets=Math.max(1,c.sets-1);upd();};
   $('sp').onclick=function(){c.sets=Math.min(10,c.sets+1);upd();};
   $('nm').onclick=function(){c.n=Math.max(step,c.n-step);upd();};
-  $('np').onclick=function(){c.n=Math.min(300,c.n+step);upd();};
+  $('np').onclick=function(){c.n=Math.min(600,c.n+step);upd();};
   $('go').onclick=function(){startRun([{ex:ex.id,sets:c.sets,n:c.n}],ex.name,{src:'ex',key:ex.id});};
 }
+
+/* ===== Fox-calisthenics 3: Báo cáo ===== */
+var MONTH=null;
+function renderReport(m){
+  var hs=liveHist(),kc=0,mins=0;hs.forEach(function(s){kc+=sessKcal(s);mins+=s.mins||0;});
+  var h='<div class="num"><div class="card"><b>'+hs.length+'</b><span class="sub">buổi tập</span></div><div class="card"><b>'+fmtNum(kc)+'</b><span class="sub">kcal</span></div><div class="card"><b>'+fmtNum(mins)+'</b><span class="sub">phút</span></div></div>';
+  // Lịch tháng
+  var now=new Date();if(!MONTH)MONTH=new Date(now.getFullYear(),now.getMonth(),1);
+  var dd=doneDays(),y=MONTH.getFullYear(),mo=MONTH.getMonth(),first=(new Date(y,mo,1).getDay()+6)%7,days=new Date(y,mo+1,0).getDate(),i,mc=0;
+  var cal='';['T2','T3','T4','T5','T6','T7','CN'].forEach(function(n){cal+='<div class="ch">'+n+'</div>';});
+  for(i=0;i<first;i++)cal+='<div></div>';
+  for(i=1;i<=days;i++){var k=y+'-'+pad(mo+1)+'-'+pad(i);if(dd[k])mc++;cal+='<div class="cday'+(dd[k]?' on':'')+(k===ymd(now)?' td':'')+'">'+i+'</div>';}
+  h+='<div class="sec">Lịch tập</div><div class="card"><div class="row" style="justify-content:space-between"><button class="btn ghost sm" id="mP">‹</button><b>Tháng '+(mo+1)+'/'+y+' · '+mc+' ngày tập</b><button class="btn ghost sm" id="mN">›</button></div><div class="cal">'+cal+'</div></div>';
+  // Cân nặng
+  var ws=liveW(),last=ws.length?ws[ws.length-1]:null;
+  h+='<div class="sec">Cân nặng</div><div class="card"><div class="row" style="justify-content:space-between"><div><div class="big2">'+(last?fmtNum(last.kg,1)+' <small>kg</small>':'—')+'</div><div class="sub">'+(last?'Ghi ngày '+vnDate(last.date)+(ws.length>1?' · so với lần đầu: '+(last.kg-ws[0].kg>=0?'+':'−')+fmtNum(Math.abs(last.kg-ws[0].kg),1)+' kg':''):'Chưa có số liệu')+'</div></div><button class="btn sm" id="wAdd" style="flex:none;white-space:nowrap">＋ Ghi</button></div>'+weightChart(ws)+'</div>';
+  // BMI
+  var ht=DB.prof.h,bmi=(ht&&last)?last.kg/Math.pow(ht/100,2):0;
+  h+='<div class="sec">Chỉ số BMI</div><div class="card">';
+  if(bmi){
+    var cat=bmi<18.5?['Thiếu cân','#2F7BEA']:bmi<25?['Bình thường','#2e7d32']:bmi<30?['Thừa cân','#E8A020']:['Béo phì','#c62828'];
+    var pos=Math.max(0,Math.min(100,(bmi-15)/(40-15)*100));
+    h+='<div class="row" style="justify-content:space-between"><div><div class="big2">'+fmtNum(bmi,1)+'</div><div class="sub" style="color:'+cat[1]+';font-weight:700">'+cat[0]+'</div></div><button class="btn ghost sm" id="hEdit">Chiều cao '+ht+' cm</button></div>';
+    h+='<div class="bmi"><i style="left:'+pos+'%"></i></div><div class="bmil"><span>15</span><span>18,5</span><span>25</span><span>30</span><span>40</span></div>';
+    h+='<div class="note">Ngưỡng theo WHO. Với người châu Á, nhiều tài liệu coi từ 23 là thừa cân. BMI không phân biệt cơ và mỡ.</div>';
+  }else h+='<div class="sub">'+(ht?'Ghi cân nặng để tính BMI.':'Nhập chiều cao và ghi cân nặng để tính BMI.')+'</div><div style="margin-top:10px"><button class="btn ghost" id="hEdit">'+(ht?'Chiều cao '+ht+' cm':'Nhập chiều cao')+'</button></div>';
+  h+='</div><div class="sec">Lịch sử tập</div>';
+  m.innerHTML=h;
+  $('mP').onclick=function(){MONTH=new Date(y,mo-1,1);render();};
+  $('mN').onclick=function(){MONTH=new Date(y,mo+1,1);render();};
+  $('wAdd').onclick=addWeight;$('hEdit').onclick=editHeight;
+  if(!hs.length){var e=document.createElement('div');e.className='empty';e.textContent='Chưa có buổi nào. Hoàn thành một bài để bắt đầu ghi lịch sử.';m.appendChild(e);}
+  hs.forEach(function(s){
+    var c=document.createElement('div');c.className='card';
+    var sets=0,list='';s.items.forEach(function(i){sets+=i.sets;var e=exById(i.ex);list+='<div class="sub">'+(e?e.name:i.ex)+' · '+i.sets+' × '+i.n+(e?' '+unit(e):'')+'</div>';});
+    c.innerHTML='<div class="row"><div class="grow"><div class="name">'+esc(s.title)+'</div><div class="sub">'+vnDate(s.date)+' · '+s.mins+' phút · '+fmtNum(sessKcal(s))+' kcal · '+sets+' hiệp</div></div><button class="btn ghost sm" style="color:#c62828">Xóa</button></div><div style="margin-top:6px">'+list+'</div>';
+    c.querySelector('button').onclick=function(){ask('Xóa buổi tập?',vnDate(s.date)+' · '+esc(s.title),'Xóa',true,function(){s.deleted=true;s.updated=Date.now();saveDB();render();});};
+    m.appendChild(c);
+  });
+}
+function weightChart(ws){
+  ws=ws.slice(-30);if(ws.length<2)return '<div class="note">Ghi ít nhất 2 lần để xem biểu đồ.</div>';
+  var W=340,H=180,L=40,R=12,T=26,B=28,min=Infinity,max=-Infinity;
+  ws.forEach(function(w){min=Math.min(min,w.kg);max=Math.max(max,w.kg);});
+  var pad2=Math.max(.5,(max-min)*.15);min-=pad2;max+=pad2;
+  var X=function(i){return L+(W-L-R)*i/(ws.length-1);},Y=function(v){return T+(H-T-B)*(1-(v-min)/(max-min));};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" class="chart"><text x="'+L+'" y="14" class="ct">Cân nặng theo ngày ghi (kg)</text>';
+  for(var g=0;g<=3;g++){var v=min+(max-min)*g/3,yy=Y(v);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" class="gl"/><text x="'+(L-6)+'" y="'+(yy+4)+'" class="ax" text-anchor="end">'+fmtNum(v,1)+'</text>';}
+  var d='';ws.forEach(function(w,i){d+=(i?'L':'M')+X(i).toFixed(1)+','+Y(w.kg).toFixed(1);});
+  s+='<path d="'+d+'" class="ln"/>';
+  ws.forEach(function(w,i){s+='<circle cx="'+X(i)+'" cy="'+Y(w.kg)+'" r="3" class="dt"/>';});
+  s+='<text x="'+L+'" y="'+(H-8)+'" class="ax">'+vnDate(ws[0].date).slice(0,5)+'</text><text x="'+(W-R)+'" y="'+(H-8)+'" class="ax" text-anchor="end">'+vnDate(ws[ws.length-1].date).slice(0,5)+'</text></svg>';
+  return s;
+}
+function numModal(title,sub,val,unitTxt,cb){
+  var m=document.createElement('div');m.className='modal';
+  m.innerHTML='<div class="dlg"><h2>'+title+'</h2><p class="sub">'+sub+'</p><div class="row"><input id="nIn" class="nt big" inputmode="decimal" value="'+(val||'')+'" placeholder="0"><b>'+unitTxt+'</b></div><div class="bt"><button id="nNo">Bỏ qua</button><button class="pr" id="nOk">Lưu</button></div></div>';
+  document.body.appendChild(m);var inp=m.querySelector('#nIn');setTimeout(function(){inp.focus();},50);
+  m.querySelector('#nNo').onclick=function(){m.remove();};
+  m.querySelector('#nOk').onclick=function(){var v=parseFloat(String(inp.value).trim().replace(',','.'));if(!(v>0)){toast('Số không hợp lệ');return;}if(cb(v)!==false)m.remove();};
+}
+function addWeight(){
+  var last=curKg();
+  numModal('Ghi cân nặng hôm nay','Nhập số kg, ví dụ 62,5. Ghi nhiều lần trong một ngày thì giữ số mới nhất.',last?fmtNum(last,1):'','kg',function(v){
+    if(v<20||v>300){toast('Cân nặng phải từ 20 đến 300 kg');return false;}
+    var t=ymd(new Date()),o=DB.weights.filter(function(w){return w.date===t&&!w.deleted;})[0];
+    if(o){o.kg=Math.round(v*10)/10;o.updated=Date.now();}else DB.weights.push({id:uid(),date:t,kg:Math.round(v*10)/10,updated:Date.now()});
+    saveDB();render();toast('Đã ghi '+fmtNum(v,1)+' kg');
+  });
+}
+function editHeight(){
+  numModal('Chiều cao','Nhập chiều cao tính bằng cm, ví dụ 168.',DB.prof.h||'','cm',function(v){
+    if(v<100||v>230){toast('Chiều cao phải từ 100 đến 230 cm');return false;}
+    DB.prof={h:Math.round(v),updated:Date.now()};saveDB();render();
+  });
+}
+
+
+/* ===== Cài đặt (kiểu menu Khác của Fox-finance) ===== */
+var WDN=['CN','T2','T3','T4','T5','T6','T7'];
+function backupAge(){if(!LOC.backup)return null;return Math.floor((Date.now()-new Date(LOC.backup+'T00:00:00').getTime())/86400000);}
+function renderSettings(m){
+  var age=backupAge(),r=LOC.rem,tipN=(DB.tips.text||'').split('\n').filter(function(x){return x.trim();}).length;
+  var h=(age===null?'<div class="warn">⚠ Chưa sao lưu lần nào</div>':(age>3?'<div class="warn">⚠ Đã '+age+' ngày chưa sao lưu</div>':''));
+  h+='<div class="card"><button class="li" data-p="goal"><i>🎯</i><span>Mục tiêu tuần</span><em>'+LOC.goal+' ngày</em></button>'+
+     '<button class="li" data-p="rem"><i>⏰</i><span>Nhắc tập</span><em>'+(r.on?'Bật · '+r.time:'Chưa bật')+'</em></button>'+
+     '<button class="li" data-p="tips"><i>📝</i><span>Nhắc nhở khi tập</span><em>'+(tipN?tipN+' dòng':'Đang ẩn')+'</em></button>'+
+     '<button class="li" data-p="snd"><i>🔔</i><span>Âm báo</span><em>'+(LOC.sound?'Bật':'Tắt')+'</em></button></div>';
+  h+='<div class="card"><button class="li" data-p="bk"><i>💾</i><span>Sao lưu dữ liệu</span></button>'+
+     '<button class="li" data-p="guide"><i>📖</i><span>Hướng dẫn sử dụng</span></button>'+
+     '<button class="li" data-p="info"><i>ℹ️</i><span>Thông tin ứng dụng</span></button></div>';
+  m.innerHTML=h;
+  var T={goal:['Mục tiêu tuần',pgGoal],rem:['Nhắc tập',pgRem],tips:['Nhắc nhở khi tập',pgTips,{foot:'Lưu lại & Thoát',onFoot:saveTips}],snd:['Âm báo',pgSnd],bk:['Sao lưu dữ liệu',pgBk],guide:['Hướng dẫn sử dụng',pgGuide],info:['Thông tin ứng dụng',pgInfo]};
+  var bs=m.querySelectorAll('.li');for(var i=0;i<bs.length;i++)bs[i].onclick=function(){var t=T[this.dataset.p];TIPS_DRAFT=null;openPage(t[0],t[1],t[2]);};
+}
+function pgGoal(b){
+  b.innerHTML='<div class="card"><div class="inp"><span>Số ngày tập mỗi tuần</span><div class="st"><button id="g1">−</button><b id="gv">'+LOC.goal+'</b><button id="g2">+</button></div></div><div class="note">Tuần tính từ Thứ 2 đến Chủ nhật. Tiến độ hiện ở đầu tab Huấn luyện.</div></div>';
+  $('g1').onclick=function(){LOC.goal=Math.max(1,LOC.goal-1);saveLoc();$('gv').textContent=LOC.goal;};
+  $('g2').onclick=function(){LOC.goal=Math.min(7,LOC.goal+1);saveLoc();$('gv').textContent=LOC.goal;};
+}
+function pgRem(b){
+  var r=LOC.rem,h='<div class="card"><div class="inp"><span>Nhắc tập</span><label class="sw"><input type="checkbox" id="rOn"'+(r.on?' checked':'')+'><span></span></label></div>';
+  h+='<div class="inp"><span>Giờ nhắc</span><input type="time" id="rT" value="'+r.time+'"></div><div class="days2">';
+  [1,2,3,4,5,6,0].forEach(function(d){h+='<button class="dd'+(r.days.indexOf(d)>=0?' on':'')+'" data-d="'+d+'">'+WDN[d]+'</button>';});
+  h+='</div><button class="primary" id="ics">📅 Thêm lịch nhắc vào Lịch iPhone</button>';
+  h+='<div class="note">Ứng dụng web không tự gửi thông báo đáng tin cậy trên iPhone. Khi bật, app hiện dòng nhắc lúc bạn mở app sau giờ đã chọn. Muốn có chuông báo thật: bấm nút trên để thêm sự kiện lặp lại vào ứng dụng Lịch.</div></div>';
+  b.innerHTML=h;
+  $('rOn').onchange=function(){r.on=this.checked;saveLoc();};
+  $('rT').onchange=function(){if(this.value){r.time=this.value;saveLoc();}};
+  var ds=b.querySelectorAll('.dd');for(var i=0;i<ds.length;i++)ds[i].onclick=function(){var d=+this.dataset.d,k=r.days.indexOf(d);if(k>=0)r.days.splice(k,1);else r.days.push(d);saveLoc();this.className='dd'+(k>=0?'':' on');};
+  $('ics').onclick=makeIcs;
+}
+var TIPS_DRAFT=null;
+function pgTips(b){
+  if(TIPS_DRAFT===null)TIPS_DRAFT=DB.tips.text||'';
+  b.innerHTML='<div class="card"><label class="lb">Nội dung nhắc nhở (mỗi dòng là một ý)</label><textarea class="nt" id="tpT" rows="7" style="width:100%">'+esc(TIPS_DRAFT)+'</textarea><div class="note">Hiện ở cuối tab Huấn luyện. Xóa hết nội dung để ẩn.</div><button class="primary ghost" id="tpR">Khôi phục nội dung mặc định</button></div><div class="sec">Xem trước</div><div id="tpP"></div>';
+  function prev(){var t=TIPS_DRAFT.split('\n').map(function(s){return s.trim();}).filter(Boolean);$('tpP').innerHTML=t.length?'<div class="tipbox">'+t.map(function(x){return '<div>• '+esc(x)+'</div>';}).join('')+'</div>':'<div class="empty">Đang ẩn</div>';}
+  $('tpT').oninput=function(){TIPS_DRAFT=this.value;prev();};
+  $('tpR').onclick=function(){TIPS_DRAFT=DEF_TIPS;$('tpT').value=DEF_TIPS;prev();};
+  prev();
+}
+function saveTips(){DB.tips={text:TIPS_DRAFT===null?DB.tips.text:TIPS_DRAFT,updated:Date.now()};TIPS_DRAFT=null;saveDB();toast('Đã lưu nhắc nhở');}
+function pgSnd(b){
+  b.innerHTML='<div class="card"><div class="inp"><span>Âm báo (hết giờ, nghỉ)</span><label class="sw"><input type="checkbox" id="snd"'+(LOC.sound?' checked':'')+'><span></span></label></div><div class="note">Nếu không nghe tiếng, kiểm tra công tắc im lặng bên hông iPhone.</div></div>';
+  $('snd').onchange=function(){LOC.sound=this.checked;saveLoc();if(LOC.sound)beep(660,120);};
+}
+function pgBk(b){
+  var age=backupAge(),nImg=Object.keys(MEDIA).length;
+  b.innerHTML=(LOC.backup?'<div class="'+(age>3?'warn':'ok')+'">Sao lưu gần nhất: '+vnDate(LOC.backup)+(age>3?' (đã quá 3 ngày)':'')+'</div>':'<div class="warn">⚠ Chưa sao lưu lần nào</div>')+
+    '<div class="card"><button class="primary" id="exp" style="margin-top:0">Xuất file sao lưu</button><button class="primary ghost" id="imp">Nhập file sao lưu</button><input type="file" id="fi" accept=".json,application/json" style="display:none">'+
+    '<div class="note">File sao lưu gồm lịch sử tập, giáo án, bài tập tự thêm và chỉnh sửa, nhóm cơ, ảnh/GIF ('+nImg+' hình), cân nặng, chiều cao, tiến độ thử thách và nhắc nhở. Dữ liệu chỉ nằm trong máy này: xóa biểu tượng ngoài màn hình chính hoặc xóa dữ liệu Safari sẽ mất hết. Nhập file sẽ gộp thêm, không ghi đè.</div></div>';
+  $('exp').onclick=exportData;$('imp').onclick=function(){$('fi').click();};
+  $('fi').onchange=function(ev){var f=ev.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){importData(rd.result);};rd.readAsText(f);};
+}
+function pgGuide(b){
+  b.innerHTML='<div class="card guide"><b>Huấn luyện:</b> mục tiêu tuần, thử thách 30 ngày và mục <b>Giáo án</b>. Bấm chữ “Giáo án” để hiện nút <b>Tạo/Sửa</b>: tạo giáo án mới, đổi tên, thêm/bớt bài, chỉnh số hiệp – số lần, đổi thứ tự hoặc xóa.<br><br>'+
+    '<b>Trong một giáo án:</b> bật nút <b>Hoàn thành</b> cạnh bài đã tập. Bật đủ tất cả thì buổi tập được ghi vào lịch sử. Sang ngày mới các nút tự tắt. Bấm “Bắt đầu tập” để app dẫn từng hiệp; tập xong các bài cũng tự được đánh dấu.<br><br>'+
+    '<b>Bài tập:</b> số trong ngoặc là số bài. Bấm <b>Thêm/Sửa</b> để thêm bài tập (tên, nhiều nhóm cơ, số hiệp, số lần hoặc số giây, mức độ, ảnh/GIF, mô tả), thêm nhóm cơ, sửa bài và đổi thứ tự bằng ↑ ↓. Bài có sẵn chỉ ẩn, khôi phục lại được.<br><br>'+
+    '<b>Báo cáo:</b> tổng buổi, kcal (ước tính), phút, lịch tập theo tháng, cân nặng, BMI và lịch sử.<br><br>'+
+    '<b>Cài ra màn hình chính:</b> mở bằng Safari, bấm nút Chia sẻ, chọn “Thêm vào Màn hình chính”. Nhớ sao lưu trước khi xóa biểu tượng.</div>';
+}
+function pgInfo(b){b.innerHTML='<div class="card"><div class="name">Fox-calisthenics</div><div class="sub">Phiên bản '+APP_VER+'</div><div class="note">'+exVisible().length+' bài tập · '+plans().length+' giáo án · '+groups().length+' nhóm cơ</div></div>';}
+
+/* ----- Sao lưu / nhập ----- */
+function mergeList(a,b){var map={},add=0;a.forEach(function(s){map[s.id]=s;});(b||[]).forEach(function(s){if(!s||!s.id)return;var o=map[s.id];if(!o){a.push(s);add++;}else if((s.updated||0)>(o.updated||0)){for(var k in s)o[k]=s[k];}});return add;}
+function importData(txt){
+  try{
+    var d=JSON.parse(txt);if(!d||!d.history)throw 0;
+    var add=mergeList(DB.history,d.history);mergeList(DB.weights,d.weights);
+    mergeList(DB.cex,d.cex);mergeList(DB.groups,d.groups);var ap=mergeList(DB.plans,d.plans);
+    if(d.exo)for(var k in d.exo){var o=DB.exo[k];if(!o||(d.exo[k].updated||0)>(o.updated||0))DB.exo[k]=d.exo[k];}
+    if((d.gorderU||0)>(DB.gorderU||0)){var ord=(d.groups||[]).map(function(g){return g.id;});DB.groups.sort(function(x,y){var i=ord.indexOf(x.id),j=ord.indexOf(y.id);return (i<0?999:i)-(j<0?999:j);});if(d.gorder)DB.gorder=d.gorder;DB.gorderU=d.gorderU;}
+    if(d.ch&&d.ch.done){for(k in d.ch.done)if(!DB.ch.done[k])DB.ch.done[k]=d.ch.done[k];}
+    if(d.prof&&(d.prof.updated||0)>(DB.prof.updated||0))DB.prof=d.prof;
+    if(d.tips&&(d.tips.updated||0)>(DB.tips.updated||0))DB.tips=d.tips;
+    if(d.media)for(k in d.media)if(!MEDIA[k])mediaPut(k,d.media[k]);
+    saveDB();syncEx();closeAll();toast('Đã nhập: +'+add+' buổi tập, +'+ap+' giáo án');
+  }catch(e){toast('File không đúng định dạng');}
+}
+function shareFile(name,text,type,done){
+  var blob=new Blob([text],{type:type}),file;try{file=new File([blob],name,{type:type});}catch(e){file=null;}
+  if(file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).then(done||function(){}).catch(function(){});}
+  else{var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();if(done)done();}
+}
+function exportData(){
+  var o={app:'Fox-calisthenics',version:APP_VER,exported:new Date().toISOString(),media:MEDIA};
+  ['history','weights','ch','prof','cex','exo','groups','gorder','gorderU','plans','tips'].forEach(function(k){o[k]=DB[k];});
+  shareFile('fox-calisthenics_'+ymd(new Date())+'.json',JSON.stringify(o),'application/json',function(){LOC.backup=ymd(new Date());saveLoc();if(PAGES.length)renderPage();render();});
+}
+function makeIcs(){
+  var r=LOC.rem;if(!r.days.length){toast('Chọn ít nhất một ngày');return;}
+  var BY=['SU','MO','TU','WE','TH','FR','SA'],t=r.time.split(':'),d=new Date();
+  while(r.days.indexOf(d.getDay())<0)d.setDate(d.getDate()+1);
+  var st=d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(+t[0])+pad(+t[1])+'00';
+  var end=new Date(d);end.setHours(+t[0],+t[1]+30,0,0);
+  var en=end.getFullYear()+pad(end.getMonth()+1)+pad(end.getDate())+'T'+pad(end.getHours())+pad(end.getMinutes())+'00';
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Fox-calisthenics//VI','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:fox-calisthenics-'+uid(),
+    'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+st,'DTEND:'+en,
+    'RRULE:FREQ=WEEKLY;BYDAY='+r.days.map(function(x){return BY[x];}).join(','),
+    'SUMMARY:Tập Fox-calisthenics','DESCRIPTION:Mở app Fox-calisthenics để tập.','URL:'+location.href.split('#')[0],
+    'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Đến giờ tập rồi!','TRIGGER:PT0M','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  shareFile('nhac-tap-fox-calisthenics.ics',ics,'text/calendar');
+}
+
+/* ----- Khởi động ----- */
+document.addEventListener('DOMContentLoaded',function(){
+  var bs=document.querySelectorAll('nav button'),i;
+  for(i=0;i<bs.length;i++)bs[i].onclick=function(){if(PAGES.length){PAGES=[];$('page').className='';}go(this.dataset.t);};
+  $('pback').onclick=popPage;
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
+  try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js');}catch(e){}
+  idbOpen(function(){mediaLoadAll(function(){syncEx();render();});});
+});
 
 /* ===== Fox-calisthenics: chế độ tập (giữ như bản 1.x) ===== */
 var AC=null,WL=null,RUN=null;
@@ -875,6 +1423,7 @@ function finishRun(){
   stopTimer();beep(660,150);setTimeout(function(){beep(990,300);},200);
   var s=saveSession(),r=$('run');
   if(s&&RUN.meta.src==='ch'){DB.ch.done[RUN.meta.key]=s.date;DB.ch.updated=Date.now();saveDB();CH_SEL=0;}
+  if(RUN.meta.src==='plan'){var pl=planById(RUN.meta.key);if(pl)RUN.done.forEach(function(d){var it=RUN.items[d.qi];if(it&&d.sets>=it.sets)setPlanDone(pl,d.qi,true,true);});}
   var h='<div class="top"><span>Hoàn thành</span></div><div class="big" style="font-size:56px">🎉</div><div class="lab"><b>'+RUN.title+'</b></div>';
   if(s){
     var sets=0;s.items.forEach(function(i){sets+=i.sets;});
@@ -883,7 +1432,7 @@ function finishRun(){
     h+='</div>';
   }else h+='<div class="empty">Chưa hoàn thành hiệp nào nên không lưu vào lịch sử.</div>';
   h+='<div class="grid"><button class="btn" id="fin">Xong</button></div>';
-  r.innerHTML=h;$('fin').onclick=function(){closeRun();go('rep');};
+  r.innerHTML=h;$('fin').onclick=function(){closeRun();if(!PAGES.length)go('rep');};
 }
 function exitRun(){
   var msg=RUN.done.length?'Phần đã tập sẽ được lưu vào lịch sử.':'Chưa có hiệp nào hoàn thành nên sẽ không lưu.';
@@ -938,154 +1487,6 @@ function runUI(){
   }
 }
 
-
-/* ===== Fox-calisthenics: Báo cáo, Cài đặt, sao lưu, nhắc tập ===== */
-var MONTH=null;
-function renderReport(m){
-  var hs=liveHist(),kc=0,mins=0;hs.forEach(function(s){kc+=sessKcal(s);mins+=s.mins||0;});
-  var h='<div class="num"><div class="card"><b>'+hs.length+'</b><span class="sub">buổi tập</span></div><div class="card"><b>'+fmtNum(kc)+'</b><span class="sub">kcal</span></div><div class="card"><b>'+fmtNum(mins)+'</b><span class="sub">phút</span></div></div>';
-  // Lịch tháng
-  var now=new Date();if(!MONTH)MONTH=new Date(now.getFullYear(),now.getMonth(),1);
-  var dd=doneDays(),y=MONTH.getFullYear(),mo=MONTH.getMonth(),first=(new Date(y,mo,1).getDay()+6)%7,days=new Date(y,mo+1,0).getDate(),i,mc=0;
-  var cal='';['T2','T3','T4','T5','T6','T7','CN'].forEach(function(n){cal+='<div class="ch">'+n+'</div>';});
-  for(i=0;i<first;i++)cal+='<div></div>';
-  for(i=1;i<=days;i++){var k=y+'-'+pad(mo+1)+'-'+pad(i);if(dd[k])mc++;cal+='<div class="cday'+(dd[k]?' on':'')+(k===ymd(now)?' td':'')+'">'+i+'</div>';}
-  h+='<h2>Lịch tập</h2><div class="card"><div class="row" style="justify-content:space-between"><button class="btn ghost sm" id="mP">‹</button><b>Tháng '+(mo+1)+'/'+y+' · '+mc+' ngày tập</b><button class="btn ghost sm" id="mN">›</button></div><div class="cal">'+cal+'</div></div>';
-  // Cân nặng
-  var ws=liveW(),last=ws.length?ws[ws.length-1]:null;
-  h+='<h2>Cân nặng</h2><div class="card"><div class="row" style="justify-content:space-between"><div><div class="big2">'+(last?fmtNum(last.kg,1)+' <small>kg</small>':'—')+'</div><div class="sub">'+(last?'Ghi ngày '+vnDate(last.date)+(ws.length>1?' · so với lần đầu: '+(last.kg-ws[0].kg>=0?'+':'−')+fmtNum(Math.abs(last.kg-ws[0].kg),1)+' kg':''):'Chưa có số liệu')+'</div></div><button class="btn sm" id="wAdd" style="flex:none;white-space:nowrap">＋ Ghi</button></div>'+weightChart(ws)+'</div>';
-  // BMI
-  var ht=DB.prof.h,bmi=(ht&&last)?last.kg/Math.pow(ht/100,2):0;
-  h+='<h2>Chỉ số BMI</h2><div class="card">';
-  if(bmi){
-    var cat=bmi<18.5?['Thiếu cân','#2F7BEA']:bmi<25?['Bình thường','#2e7d32']:bmi<30?['Thừa cân','#E8A020']:['Béo phì','#c62828'];
-    var pos=Math.max(0,Math.min(100,(bmi-15)/(40-15)*100));
-    h+='<div class="row" style="justify-content:space-between"><div><div class="big2">'+fmtNum(bmi,1)+'</div><div class="sub" style="color:'+cat[1]+';font-weight:700">'+cat[0]+'</div></div><button class="btn ghost sm" id="hEdit">Chiều cao '+ht+' cm</button></div>';
-    h+='<div class="bmi"><i style="left:'+pos+'%"></i></div><div class="bmil"><span>15</span><span>18,5</span><span>25</span><span>30</span><span>40</span></div>';
-    h+='<div class="note">Ngưỡng theo WHO. Với người châu Á, nhiều tài liệu coi từ 23 là thừa cân. BMI không phân biệt cơ và mỡ.</div>';
-  }else h+='<div class="sub">'+(ht?'Ghi cân nặng để tính BMI.':'Nhập chiều cao và ghi cân nặng để tính BMI.')+'</div><div style="margin-top:10px"><button class="btn ghost" id="hEdit">'+(ht?'Chiều cao '+ht+' cm':'Nhập chiều cao')+'</button></div>';
-  h+='</div><h2>Lịch sử tập</h2>';
-  m.innerHTML=h;
-  $('mP').onclick=function(){MONTH=new Date(y,mo-1,1);render();};
-  $('mN').onclick=function(){MONTH=new Date(y,mo+1,1);render();};
-  $('wAdd').onclick=addWeight;$('hEdit').onclick=editHeight;
-  if(!hs.length){var e=document.createElement('div');e.className='empty';e.textContent='Chưa có buổi nào. Hoàn thành một bài để bắt đầu ghi lịch sử.';m.appendChild(e);}
-  hs.forEach(function(s){
-    var c=document.createElement('div');c.className='card';
-    var sets=0,list='';s.items.forEach(function(i){sets+=i.sets;var e=exById(i.ex);list+='<div class="sub">'+(e?e.name:i.ex)+' · '+i.sets+' × '+i.n+(e?' '+unit(e):'')+'</div>';});
-    c.innerHTML='<div class="row"><div class="grow"><div class="name">'+s.title+'</div><div class="sub">'+vnDate(s.date)+' · '+s.mins+' phút · '+fmtNum(sessKcal(s))+' kcal · '+sets+' hiệp</div></div><button class="btn ghost sm" style="color:#c62828">Xóa</button></div><div style="margin-top:6px">'+list+'</div>';
-    c.querySelector('button').onclick=function(){ask('Xóa buổi tập?',vnDate(s.date)+' · '+s.title,'Xóa',true,function(){s.deleted=true;s.updated=Date.now();saveDB();render();});};
-    m.appendChild(c);
-  });
-}
-function weightChart(ws){
-  ws=ws.slice(-30);if(ws.length<2)return '<div class="note">Ghi ít nhất 2 lần để xem biểu đồ.</div>';
-  var W=340,H=180,L=40,R=12,T=26,B=28,min=Infinity,max=-Infinity;
-  ws.forEach(function(w){min=Math.min(min,w.kg);max=Math.max(max,w.kg);});
-  var pad2=Math.max(.5,(max-min)*.15);min-=pad2;max+=pad2;
-  var X=function(i){return L+(W-L-R)*i/(ws.length-1);},Y=function(v){return T+(H-T-B)*(1-(v-min)/(max-min));};
-  var s='<svg viewBox="0 0 '+W+' '+H+'" class="chart"><text x="'+L+'" y="14" class="ct">Cân nặng theo ngày ghi (kg)</text>';
-  for(var g=0;g<=3;g++){var v=min+(max-min)*g/3,yy=Y(v);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'" class="gl"/><text x="'+(L-6)+'" y="'+(yy+4)+'" class="ax" text-anchor="end">'+fmtNum(v,1)+'</text>';}
-  var d='';ws.forEach(function(w,i){d+=(i?'L':'M')+X(i).toFixed(1)+','+Y(w.kg).toFixed(1);});
-  s+='<path d="'+d+'" class="ln"/>';
-  ws.forEach(function(w,i){s+='<circle cx="'+X(i)+'" cy="'+Y(w.kg)+'" r="3" class="dt"/>';});
-  s+='<text x="'+L+'" y="'+(H-8)+'" class="ax">'+vnDate(ws[0].date).slice(0,5)+'</text><text x="'+(W-R)+'" y="'+(H-8)+'" class="ax" text-anchor="end">'+vnDate(ws[ws.length-1].date).slice(0,5)+'</text></svg>';
-  return s;
-}
-function numModal(title,sub,val,unitTxt,cb){
-  var m=document.createElement('div');m.className='modal';
-  m.innerHTML='<div class="box"><b style="font-size:18px">'+title+'</b><p class="sub">'+sub+'</p><div class="row"><input id="nIn" inputmode="decimal" value="'+(val||'')+'" placeholder="0"><b>'+unitTxt+'</b></div><div class="two"><button class="btn ghost" id="nNo">Bỏ qua</button><button class="btn" id="nOk">Lưu</button></div></div>';
-  document.body.appendChild(m);var inp=m.querySelector('#nIn');setTimeout(function(){inp.focus();},50);
-  m.querySelector('#nNo').onclick=function(){m.remove();};
-  m.querySelector('#nOk').onclick=function(){var v=parseFloat(String(inp.value).trim().replace(',','.'));if(!(v>0)){toast('Số không hợp lệ');return;}if(cb(v)!==false)m.remove();};
-}
-function addWeight(){
-  var last=curKg();
-  numModal('Ghi cân nặng hôm nay','Nhập số kg, ví dụ 62,5. Ghi nhiều lần trong một ngày thì giữ số mới nhất.',last?fmtNum(last,1):'','kg',function(v){
-    if(v<20||v>300){toast('Cân nặng phải từ 20 đến 300 kg');return false;}
-    var t=ymd(new Date()),o=DB.weights.filter(function(w){return w.date===t&&!w.deleted;})[0];
-    if(o){o.kg=Math.round(v*10)/10;o.updated=Date.now();}else DB.weights.push({id:uid(),date:t,kg:Math.round(v*10)/10,updated:Date.now()});
-    saveDB();render();toast('Đã ghi '+fmtNum(v,1)+' kg');
-  });
-}
-function editHeight(){
-  numModal('Chiều cao','Nhập chiều cao tính bằng cm, ví dụ 168.',DB.prof.h||'','cm',function(v){
-    if(v<100||v>230){toast('Chiều cao phải từ 100 đến 230 cm');return false;}
-    DB.prof={h:Math.round(v),updated:Date.now()};saveDB();render();
-  });
-}
-
-/* ----- Cài đặt ----- */
-var WDN=['CN','T2','T3','T4','T5','T6','T7'];
-function backupAge(){if(!LOC.backup)return null;return Math.floor((Date.now()-new Date(LOC.backup+'T00:00:00').getTime())/86400000);}
-function renderSettings(m){
-  var age=backupAge(),warn=(age===null||age>3),r=LOC.rem,i;
-  var h='<h2>Mục tiêu và nhắc tập</h2><div class="card"><div class="inp"><span>Số ngày tập mỗi tuần</span><div class="st"><button id="g1">−</button><b id="gv">'+LOC.goal+'</b><button id="g2">+</button></div></div>';
-  h+='<div class="inp"><span>Nhắc tập</span><button class="btn sm '+(r.on?'':'ghost')+'" id="rOn">'+(r.on?'Đang bật':'Đang tắt')+'</button></div>';
-  h+='<div class="inp"><span>Giờ nhắc</span><input type="time" id="rT" value="'+r.time+'"></div><div class="days2">';
-  [1,2,3,4,5,6,0].forEach(function(d){h+='<button class="dd'+(r.days.indexOf(d)>=0?' on':'')+'" data-d="'+d+'">'+WDN[d]+'</button>';});
-  h+='</div><button class="btn ghost" id="ics" style="margin-top:10px">📅 Thêm lịch nhắc vào Lịch iPhone</button>';
-  h+='<div class="note">Ứng dụng web không tự gửi thông báo đáng tin cậy trên iPhone. Khi bật, app hiện dòng nhắc lúc bạn mở app sau giờ đã chọn. Muốn có chuông báo thật: bấm nút trên để thêm sự kiện lặp lại vào ứng dụng Lịch, Lịch sẽ báo đúng giờ.</div></div>';
-  h+='<h2>Âm thanh</h2><div class="card"><div class="inp"><span>Âm báo (hết giờ, nghỉ)</span><button class="btn ghost sm" id="snd">'+(LOC.sound?'Đang bật':'Đang tắt')+'</button></div><div class="note" style="margin:0">Nếu không nghe tiếng, kiểm tra công tắc im lặng bên hông iPhone.</div></div>';
-  h+='<h2>Sao lưu dữ liệu</h2><div class="card"><div class="sub" style="color:'+(warn?'#c62828':'#2e7d32')+'">'+(LOC.backup?'Sao lưu gần nhất: '+vnDate(LOC.backup)+(warn?' (đã quá 3 ngày)':''):'Chưa sao lưu lần nào')+'</div>';
-  h+='<div style="display:grid;gap:8px;margin-top:10px"><button class="btn" id="exp">Xuất file sao lưu</button><button class="btn ghost" id="imp">Nhập file sao lưu</button></div><input type="file" id="fi" accept=".json,application/json" style="display:none">';
-  h+='<div class="note">File sao lưu gồm lịch sử tập, cân nặng, chiều cao và tiến độ thử thách 30 ngày. Dữ liệu chỉ nằm trong máy này: xóa biểu tượng ngoài màn hình chính hoặc xóa dữ liệu Safari sẽ mất hết, nên hãy sao lưu trước. Nhập file sẽ gộp thêm, không ghi đè.</div></div>';
-  h+='<h2>Hướng dẫn sử dụng</h2><div class="card guide"><b>Huấn luyện:</b> mục tiêu tuần, thử thách 30 ngày toàn thân và 15 giáo án theo vùng cơ (Bụng, Ngực, Tay, Chân, Vai & Lưng; mỗi vùng 3 cấp). Bấm một giáo án để xem danh sách bài rồi bấm Bắt đầu.<br><b>Thử thách 30 ngày:</b> tập theo thứ tự, cứ 3 ngày tập có 1 ngày nghỉ. Hoàn thành buổi tập là ngày đó tự được đánh dấu.<br><b>Bài tập:</b> '+EX.length+' bài có hình chuyển động và các bước; chỉnh số hiệp, số lần rồi tập riêng từng bài.<br><b>Báo cáo:</b> tổng buổi, kcal, phút, lịch tập theo tháng, cân nặng, BMI và lịch sử. Kcal là số ước tính.<br><b>Cài ra màn hình chính:</b> mở bằng Safari, bấm nút Chia sẻ, chọn “Thêm vào Màn hình chính”.</div>';
-  h+='<div class="note" style="text-align:center">Fox-calisthenics phiên bản '+APP_VER+'</div>';
-  m.innerHTML=h;
-  $('g1').onclick=function(){LOC.goal=Math.max(1,LOC.goal-1);saveLoc();$('gv').textContent=LOC.goal;};
-  $('g2').onclick=function(){LOC.goal=Math.min(7,LOC.goal+1);saveLoc();$('gv').textContent=LOC.goal;};
-  $('rOn').onclick=function(){r.on=!r.on;saveLoc();render();};
-  $('rT').onchange=function(){if(this.value){r.time=this.value;saveLoc();}};
-  var ds=m.querySelectorAll('.dd');for(i=0;i<ds.length;i++)ds[i].onclick=function(){var d=+this.dataset.d,k=r.days.indexOf(d);if(k>=0)r.days.splice(k,1);else r.days.push(d);saveLoc();this.className='dd'+(k>=0?'':' on');};
-  $('ics').onclick=makeIcs;
-  $('snd').onclick=function(){LOC.sound=!LOC.sound;saveLoc();render();if(LOC.sound)beep(660,120);};
-  $('exp').onclick=exportData;
-  $('imp').onclick=function(){$('fi').click();};
-  $('fi').onchange=function(ev){var f=ev.target.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){importData(rd.result);};rd.readAsText(f);};
-}
-function mergeList(a,b){var map={},add=0;a.forEach(function(s){map[s.id]=s;});(b||[]).forEach(function(s){if(!s||!s.id)return;var o=map[s.id];if(!o){a.push(s);add++;}else if((s.updated||0)>(o.updated||0)){for(var k in s)o[k]=s[k];}});return add;}
-function importData(txt){
-  try{
-    var d=JSON.parse(txt);if(!d||!d.history)throw 0;
-    var add=mergeList(DB.history,d.history);mergeList(DB.weights,d.weights);
-    if(d.ch&&d.ch.done){for(var k in d.ch.done)if(!DB.ch.done[k])DB.ch.done[k]=d.ch.done[k];}
-    if(d.prof&&(d.prof.updated||0)>(DB.prof.updated||0))DB.prof=d.prof;
-    saveDB();render();toast('Đã nhập, thêm '+add+' buổi mới');
-  }catch(e){toast('File không đúng định dạng');}
-}
-function shareFile(name,text,type,done){
-  var blob=new Blob([text],{type:type}),file;try{file=new File([blob],name,{type:type});}catch(e){file=null;}
-  if(file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).then(done||function(){}).catch(function(){});}
-  else{var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();if(done)done();}
-}
-function exportData(){
-  shareFile('fox-calisthenics_'+ymd(new Date())+'.json',JSON.stringify({app:'Fox-calisthenics',version:APP_VER,exported:new Date().toISOString(),history:DB.history,weights:DB.weights,ch:DB.ch,prof:DB.prof}),'application/json',
-    function(){LOC.backup=ymd(new Date());saveLoc();render();});
-}
-function makeIcs(){
-  var r=LOC.rem;if(!r.days.length){toast('Chọn ít nhất một ngày');return;}
-  var BY=['SU','MO','TU','WE','TH','FR','SA'],t=r.time.split(':'),d=new Date();
-  while(r.days.indexOf(d.getDay())<0)d.setDate(d.getDate()+1);
-  var st=d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(+t[0])+pad(+t[1])+'00';
-  var end=new Date(d);end.setHours(+t[0],+t[1]+30,0,0);
-  var en=end.getFullYear()+pad(end.getMonth()+1)+pad(end.getDate())+'T'+pad(end.getHours())+pad(end.getMinutes())+'00';
-  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Fox-calisthenics//VI','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:fox-calisthenics-'+uid(),
-    'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+st,'DTEND:'+en,
-    'RRULE:FREQ=WEEKLY;BYDAY='+r.days.map(function(x){return BY[x];}).join(','),
-    'SUMMARY:Tập Fox-calisthenics','DESCRIPTION:Mở app Fox-calisthenics để tập.','URL:'+location.href.split('#')[0],
-    'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Đến giờ tập rồi!','TRIGGER:PT0M','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
-  shareFile('nhac-tap-fox-calisthenics.ics',ics,'text/calendar');
-}
-
-/* ----- Khởi động ----- */
-document.addEventListener('DOMContentLoaded',function(){
-  var bs=document.querySelectorAll('.tabs button'),i;
-  for(i=0;i<bs.length;i++)bs[i].onclick=function(){go(this.dataset.t);};
-  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
-  try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js');}catch(e){}
-  render();
-});
 
 </script>
 </body></html>
